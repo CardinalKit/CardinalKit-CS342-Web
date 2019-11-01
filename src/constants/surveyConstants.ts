@@ -1,0 +1,5 @@
+export enum SurveyActionType {
+  FETCH_SURVEYS = 'vasctrac/FETCH_SURVEYS',
+  FETCH_SURVEYS_SUCCESS = 'vasctrac/FETCH_SURVEYS_SUCCESS',
+  FETCH_SURVEYS_FAILURE = 'vasctrac/FETCH_SURVEYS_FAILURE',
+}

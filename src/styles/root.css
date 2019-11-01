@@ -1,0 +1,14 @@
+html,
+body,
+#root,
+#root > div {
+  height: 100%;
+}
+
+.bg-red-custom {
+  background-color: #ff3554 !important;
+}
+
+.bg-vulcan {
+  background-color: #343a40 !important;
+}

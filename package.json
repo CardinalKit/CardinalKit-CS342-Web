@@ -1,0 +1,113 @@
+{
+  "name": "VascTrac",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@formatjs/intl-pluralrules": "^1.3.0",
+    "@formatjs/intl-relativetimeformat": "^4.2.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.3",
+    "core-js": "^2.6.1",
+    "date-fns": "2.0.0-alpha.13",
+    "eslint-utils": "^1.4.1",
+    "handlebars": "^4.0.14",
+    "history": "^4.7.2",
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.13",
+    "lodash.template": "^4.5.0",
+    "mixin-deep": "^1.3.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.10.2",
+    "react-day-picker": "^7.2.4",
+    "react-dom": "^16.10.2",
+    "react-feather": "^1.1.4",
+    "react-intl": "3.2.1",
+    "react-redux": "^7.1.1",
+    "react-router": "5.1.2",
+    "react-router-dom": "5.1.2",
+    "react-select": "^2.2.0",
+    "react-widgets": "^4.4.8",
+    "react-widgets-date-fns": "^4.0.23",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-saga": "^1.1.1",
+    "reselect": "^4.0.0",
+    "set-value": "^2.0.1",
+    "whatwg-fetch": "^3.0.0",
+    "firebase": "^5.6.0"
+  },
+  "devDependencies": {
+    "@types/history": "^4.7.0",
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.18",
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
+    "@types/react-redux": "^6.0.11",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/react-select": "^2.0.11",
+    "@types/react-widgets": "^4.2.0",
+    "@types/reactstrap": "^6.4.0",
+    "autoprefixer": "^9.4.6",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-plugin-import": "^2.15.0",
+    "eslint-plugin-jest": "^22.1.3",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "husky": "^1.1.1",
+    "jest-junit": "^5.2.0",
+    "jest-localstorage-mock": "^2.2.0",
+    "lint-staged": "^7.3.0",
+    "postcss-cli": "^6.1.1",
+    "prettier": "^1.16.1",
+    "react-scripts": "3.2.0",
+    "tailwindcss": "^0.7.4",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.6.3",
+    "webpack-bundle-analyzer": "^3.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "scripts": {
+    "start": "yarn run watch:css & react-scripts start",
+    "build": "yarn run build:css && react-scripts build",
+    "build:all": "CI=true yarn run build:css && react-scripts build",
+    "build:archive": "yarn run build:all && mkdir -p ./out && tar -czvf ./out/vasctrac-webapp-$(git rev-parse --short HEAD).tar.gz ./build",
+    "docker:build": "docker build -t vasctrac.azurecr.io/vasctrac-webapp:$(git rev-parse --short HEAD) .",
+    "docker:push": "docker push vasctrac.azurecr.io/vasctrac-webapp:$(git rev-parse --short HEAD)",
+    "test": "react-scripts test",
+    "test:all": "CI=true react-scripts test --env=jsdom --reporters=default --reporters=jest-junit",
+    "lint:js": "eslint '*.{js,jsx}'",
+    "lint:js:fix": "eslint --fix '*.{js,jsx}'",
+    "lint:ts": "tslint -c tslint.json '*.{ts,tsx}'",
+    "lint:ts:fix": "tslint --fix -c tslint.json '*.{ts,tsx}'",
+    "lint": "yarn run lint:js && yarn run lint:ts",
+    "lint:fix": "yarn run lint:js:fix && yarn run lint:ts:fix",
+    "eject": "react-scripts eject",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "build:css": "postcss ./src/tailwind.css -c ./tailwind.config.js -o ./src/tailwind.out.css",
+    "watch:css": "postcss ./src/tailwind.css -c ./tailwind.config.js -o ./src/tailwind.out.css -w"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix"
+    ],
+    "*.{ts,tsx}": [
+      "tslint --fix -c tslint.json"
+    ]
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
