@@ -14,7 +14,7 @@ export default class UsersPage extends React.PureComponent {
   render() {
     return (
       <div className="container mx-auto">
-        <div className="w-full mb-4">
+        <div className="w-full mt-4 mb-4 ml-4">
           <h1>
             <FormattedMessage {...messages.header} />
           </h1>

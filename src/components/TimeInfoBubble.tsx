@@ -17,66 +17,17 @@ const messages = defineMessages({
   active: {
     id: 'app.TimeInfoBubble.active',
     defaultMessage: 'active',
-  },
-  walktest: {
-    id: 'app.TimeInfoBubble.walktest',
-    defaultMessage: 'walktest',
-  },
-  sixMinuteWalkTest: {
-    id: 'app.TimeInfoBubble.sixMinuteWalkTest',
-    defaultMessage: 'six minute walktest',
-  },
-  openWalk: {
-    id: 'app.TimeInfoBubble.openWalk',
-    defaultMessage: 'open walk',
-  },
-  medSurvey: {
-    id: 'app.TimeInfoBubble.medSurvey',
-    defaultMessage: 'medical survey',
-  },
-  surgSurvey: {
-    id: 'app.TimeInfoBubble.surgSurvey',
-    defaultMessage: 'surgery survey',
-  },
-  walkSurvey: {
-    id: 'app.TimeInfoBubble.walkSurvey',
-    defaultMessage: 'walk survey',
-  },
-  sf12Survey: {
-    id: 'app.TimeInfoBubble.sf12Survey',
-    defaultMessage: 'sf12 survey',
-  },
+  }
 });
 
 export enum TimeType {
   Active = 1,
-  Walktest,
-  SixMinuteWalkTest,
-  OpenWalk,
-  MedSurvey,
-  SurgSurvey,
-  WalkSurvey,
-  Sf12Survey,
 }
 
 const typeToMessage = (type: TimeType) => {
   switch (type) {
     case TimeType.Active:
       return <FormattedMessage {...messages.active} />;
-    case TimeType.Walktest:
-      return <FormattedMessage {...messages.walktest} />;
-    case TimeType.SixMinuteWalkTest:
-      return <FormattedMessage {...messages.sixMinuteWalkTest} />;
-    case TimeType.OpenWalk:
-      return <FormattedMessage {...messages.openWalk} />;
-    case TimeType.MedSurvey:
-      return <FormattedMessage {...messages.medSurvey} />;
-    case TimeType.SurgSurvey:
-      return <FormattedMessage {...messages.surgSurvey} />;
-    case TimeType.WalkSurvey:
-      return <FormattedMessage {...messages.walkSurvey} />;
-    case TimeType.Sf12Survey:
-      return <FormattedMessage {...messages.sf12Survey} />;
     default:
       return <span />;
   }
@@ -102,20 +53,6 @@ const assignBubbleColor = (time: Date, type: TimeType) => {
   switch (type) {
     case TimeType.Active:
       return assignBubbleBreakpoints(time, GREEN_ORANGE_RED, [24 * HOUR_MS, 72 * HOUR_MS]);
-    case TimeType.Walktest:
-      return assignBubbleBreakpoints(time, GREEN_ORANGE_RED, [7 * DAY_MS, 14 * DAY_MS]);
-    case TimeType.SixMinuteWalkTest:
-      return assignBubbleBreakpoints(time, GREEN_ORANGE_RED, [7 * DAY_MS, 14 * DAY_MS]);
-    case TimeType.OpenWalk:
-      return assignBubbleBreakpoints(time, GREEN_ORANGE_RED, [7 * DAY_MS, 14 * DAY_MS]);
-    case TimeType.MedSurvey:
-      return assignBubbleBreakpoints(time, GREEN_ORANGE_RED, [7 * DAY_MS, 14 * DAY_MS]);
-    case TimeType.SurgSurvey:
-      return assignBubbleBreakpoints(time, GREEN_ORANGE_RED, [7 * DAY_MS, 14 * DAY_MS]);
-    case TimeType.WalkSurvey:
-      return assignBubbleBreakpoints(time, GREEN_ORANGE_RED, [7 * DAY_MS, 14 * DAY_MS]);
-    case TimeType.Sf12Survey:
-      return assignBubbleBreakpoints(time, GREEN_ORANGE_RED, [7 * DAY_MS, 14 * DAY_MS]);
     default:
       return assignBubbleBreakpoints(time, GREEN_ORANGE_RED, [24 * HOUR_MS, 72 * HOUR_MS]);
   }
@@ -129,7 +66,12 @@ interface TimeInfoBubbleProps {
 export const TimeInfoBubble: React.StatelessComponent<TimeInfoBubbleProps> = (
   props: TimeInfoBubbleProps
 ) => {
-  const { value, unit } = selectUnit(Date.now() - 48 * 3600 * 1000);
+
+  const targetDate : any =  props.time.getTime();
+  //console.log(targetDate);
+  const { value, unit } = selectUnit(Date.now() - targetDate);
+  //console.log(value);
+
   return (
     <InfoBubble
       color={assignBubbleColor(props.time, props.timeType)}
@@ -137,13 +79,14 @@ export const TimeInfoBubble: React.StatelessComponent<TimeInfoBubbleProps> = (
     >
       <div className="mr-1">
         <strong>
-          <FormattedMessage
+          <div>Last active</div>
+          {/*<FormattedMessage
             {...messages.relativeDate}
             values={{
               type: typeToMessage(props.timeType),
               reldate: <FormattedRelativeTime value={value} unit={unit} />,
             }}
-          />
+          />*/}
         </strong>
       </div>
       <div className="ml-1 font-mono">

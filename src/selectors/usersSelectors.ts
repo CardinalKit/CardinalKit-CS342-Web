@@ -34,7 +34,7 @@ const selectRawUserMap = createSelector(
 
 const selectRawUserList = createSelector(
   [selectRawUserMap],
-  (userMap: Map<number, UserDetails>) => Array.from(userMap.values())
+  (userMap: Map<string, UserDetails>) => Array.from(userMap.values())
 );
 
 export const selectFilteredUserList = createSelector(
@@ -43,7 +43,7 @@ export const selectFilteredUserList = createSelector(
     users.filter(user => !hiddenEIDTypes.includes(user.eID.substring(0, 3)))
 );
 
-export const selectUserDetails = (state: Store, props: { userID: number }) => {
+export const selectUserDetails = (state: Store, props: { userID: string }) => {
   return selectRawUserMap(state).get(props.userID);
 };
 
@@ -57,21 +57,8 @@ export const selectUsers = createSelector(
   (users: UserDetails[], sortOrder: UsersSortOrder, sortField: UsersSortField) => {
     let cmp;
     switch (sortField) {
-      case UsersSortField.LastWalktest:
-        cmp = (user1: UserDetails, user2: UserDetails): number => {
-          if (user1.lastWalktest && user2.lastWalktest) {
-            return user1.lastWalktest.getTime() - user2.lastWalktest.getTime();
-          } else {
-            return 0; // Data missing
-          }
-        };
-        break;
-      case UsersSortField.LastActive:
-        cmp = (user1: UserDetails, user2: UserDetails): number =>
-          user1.lastActive.getTime() - user2.lastActive.getTime();
-        break;
       case UsersSortField.UserID:
-        cmp = (user1: UserDetails, user2: UserDetails): number => user1.ID - user2.ID;
+        cmp = (user1: UserDetails, user2: UserDetails): number => parseInt(user1.ID, 10) - parseInt(user2.ID, 10);
         break;
       case UsersSortField.UserEID:
         cmp = (user1: UserDetails, user2: UserDetails): number =>

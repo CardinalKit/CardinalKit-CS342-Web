@@ -9,7 +9,6 @@ import { isAuthenticated } from './selectors/loginSelectors';
 import Header from './components/Header';
 import LoginPage from './components/LoginPage';
 import NotFoundPage from './components/NotFoundPage';
-import UserPage from './components/UserPage';
 import UsersPage from './components/UsersPage';
 
 interface AppProps {
@@ -22,12 +21,12 @@ class App extends React.Component<AppProps> {
 
     return (
       <Router>
-        <div className="bg-grey-lightest">
+        <div>
           {isAuth && <Header />}
           <Switch>
             <Route exact={true} path="/login" component={LoginPage} />
             <PrivateRoute exact={true} path="/users" component={UsersPage} />
-            <PrivateRoute exact={true} path="/user/:userID" component={UserPage} />
+            {/*<PrivateRoute exact={true} path="/user/:userID" component={UserPage} />*/}
             <Redirect exact={true} from="/" to="/users" />
             <Route component={NotFoundPage} />
           </Switch>

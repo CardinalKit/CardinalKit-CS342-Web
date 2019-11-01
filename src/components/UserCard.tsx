@@ -32,8 +32,7 @@ interface UserCardProps {
 class UserCard extends React.Component<UserCardProps> {
   render() {
 
-    console.log(this.props.user);
-    const { userID, lastActive, lastWalktest, eID } = this.props.user;
+    const { userID, lastActive, eID } = this.props.user;
     const lastActiveTake = new Date(lastActive);
 
     return (
@@ -57,8 +56,7 @@ class UserCard extends React.Component<UserCardProps> {
           <div className={`flex-grow flex flex-col justify-between`}>
             {lastActiveTake && <TimeInfoBubble timeType={TimeType.Active} time={lastActiveTake} />}
             {/*lastActive && <TimeInfoBubble timeType={TimeType.Active} time={lastActive} />*/}
-            {/*lastWalktest && <TimeInfoBubble timeType={TimeType.Walktest} time={lastWalktest} />*/}
-            <Link to={`/user/${userID}`} className="no-underline">
+            <Link to={`/`/*`/user/${userID}`*/} className="no-underline">
               <div className="bg-blue hover:bg-blue-dark border border-blue rounded px-2 py-1 my-1 flex justify-center">
                 <span className="text-white text-center">
                   <FormattedMessage {...messages.viewUserButton} />

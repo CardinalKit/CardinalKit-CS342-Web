@@ -9,7 +9,7 @@ import { LogOut } from 'react-feather';
 import { logoutUser } from '../actions/loginActions';
 import { Store } from '../reducers/rootReducer';
 
-import logo from '../images/sigil_white.png';
+import logo from '../images/cardinal_logo_white.svg';
 
 class Header extends React.Component<HeaderProps> {
   state = { collapsed: false };
@@ -24,17 +24,17 @@ class Header extends React.Component<HeaderProps> {
     return (
       <div className="mb-3 h-16 bg-red-custom shadow-md flex justify-between items-center">
         <Link to="/" className="h-16 p-2 flex flex-col justify-center">
-          <img src={logo} className="h-12" alt="VascTrac logo" />
+          <img src={logo} className="h-12" alt="Logo" />
         </Link>
 
         <div className="w-64 flex justify-end items-center">
           <div className="h-16 p-2 flex flex-col justify-center">
-            <Link
+            {/*<Link
               to="/users/"
               className="text-white text-xl font-semibold text-center no-underline"
             >
               Users
-            </Link>
+            </Link>*/}
           </div>
           <div className="h-16 p-2 flex flex-col justify-center" onClick={logout}>
             <LogOut color="white" />

@@ -9,7 +9,7 @@ export interface UsersStore
     loading: boolean;
     sortOrder: UsersSortOrder;
     sortField: UsersSortField;
-    users: Map<number, UserDetails>;
+    users: Map<string, UserDetails>;
     hiddenEIDTypes: string[];
     error: string;
   }> {} // hiddenEIDTypes are filtered out, defining shown in terms of hidden makes it easy to filter out test EIDs (000) by default
@@ -18,7 +18,7 @@ export const initialUsersState: UsersStore = {
   loading: false,
   sortOrder: UsersSortOrder.Descending,
   sortField: UsersSortField.LastActive,
-  users: new Map<number, UserDetails>(),
+  users: new Map<string, UserDetails>(),
   // Filter our test EIDs by default to reduce clutter
   hiddenEIDTypes: ['000'],
   error: '',
@@ -29,9 +29,9 @@ export function usersReducer(state = initialUsersState, action: UsersAction): Us
     case UsersActionType.FETCH_USERS:
       return { ...state, loading: true };
     case UsersActionType.FETCH_USERS_SUCCESS:
-      const newUsersMap = action.users.reduce((acc: Map<number, UserDetails>, cur: UserDetails) => {
-        return acc.set(cur.ID, {
-          ...acc.get(cur.ID),
+      const newUsersMap = action.users.reduce((acc: Map<string, UserDetails>, cur: UserDetails) => {
+        return acc.set(cur.eID, {
+          ...acc.get(cur.eID),
           ...cur,
         });
       }, new Map(state.users.entries()));

@@ -62,14 +62,11 @@ const messages = defineMessages({
 });
 
 class UserList extends React.Component<UserListProps> {
+
   componentDidMount() {
     const { loadUsers } = this.props;
     loadUsers();
   }
-
-  selectLastActive = () => this.props.changeUsersSort(UsersSortField.LastActive, undefined);
-
-  selectLastWalktest = () => this.props.changeUsersSort(UsersSortField.LastWalktest, undefined);
 
   selectUserEID = () => this.props.changeUsersSort(UsersSortField.UserEID, undefined);
 
@@ -87,26 +84,6 @@ class UserList extends React.Component<UserListProps> {
               <FormattedMessage {...messages.sortBy} />
             </p>
             <div className="inline-flex h-8">
-              <button
-                className={`${
-                  sortField === UsersSortField.LastActive
-                    ? 'bg-grey'
-                    : 'bg-grey-light hover:bg-grey'
-                }  text-sm text-center font-bold py-2 px-3 rounded-l`}
-                onClick={this.selectLastActive}
-              >
-                <FormattedMessage {...messages.lastActive} />
-              </button>
-              <button
-                className={`${
-                  sortField === UsersSortField.LastWalktest
-                    ? 'bg-grey'
-                    : 'bg-grey-light hover:bg-grey'
-                }  text-sm text-center font-bold py-2 px-3`}
-                onClick={this.selectLastWalktest}
-              >
-                <FormattedMessage {...messages.lastWalktest} />
-              </button>
               <button
                 className={`${
                   sortField === UsersSortField.UserEID ? 'bg-grey' : 'bg-grey-light hover:bg-grey'
@@ -179,7 +156,7 @@ class UserList extends React.Component<UserListProps> {
         </Card>
         <div>
           {userList.map(user => {
-            return <UserCard key={user.userID} user={user} />;
+            return <UserCard key={user.eID} user={user} />;
           })}
         </div>
       </div>

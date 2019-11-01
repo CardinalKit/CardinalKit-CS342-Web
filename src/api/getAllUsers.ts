@@ -1,17 +1,5 @@
-import { UserDetails } from './user';
-
-import { BASE_URL } from './common';
-import { request } from './request';
-
 import Firebase from '../components/Firebase';
 import app from 'firebase/app';
-
-interface APIUserSummary {
-  ID: number;
-  eID: string;
-  lastActive: string;
-  lastWalktest: string;
-}
 
 export function getAllFirebaseUsers(): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
@@ -21,6 +9,16 @@ export function getAllFirebaseUsers(): Promise<app.firestore.QuerySnapshot> {
       console.log("Error getting document:", error);
       return error;
   });
+}
+
+/*
+import { UserDetails } from './user';
+
+interface APIUserSummary {
+  ID: number;
+  eID: string;
+  lastActive: string;
+  lastWalktest: string;
 }
 
 export function getAllUsers(authToken: string): Promise<UserDetails[]> {
@@ -43,4 +41,4 @@ export function getAllUsers(authToken: string): Promise<UserDetails[]> {
       };
     })
   );
-}
+}*/
