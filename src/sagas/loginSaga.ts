@@ -1,12 +1,12 @@
-import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { LoginActionType } from '../constants/loginConstants';
 
-import { Store } from '../reducers/rootReducer';
+//import { Store } from '../reducers/rootReducer';
 
-import {
+/*import {
   getLoginState,
-} from '../selectors/loginSelectors';
+} from '../selectors/loginSelectors';*/
 
 import {
   LoginUserAction,

@@ -27,7 +27,7 @@ class App extends React.Component<AppProps> {
           <Switch>
             <Route exact={true} path="/login" component={LoginPage} />
             <PrivateRoute exact={true} path="/users" component={UsersPage} />
-            <PrivateRoute exact={true} path="/user/:userID" component={UserPage} />
+            <PrivateRoute exact={true} path="/user/:userID" component={(props:any) => <UserPage {...props} />} />
             <Redirect exact={true} from="/" to="/users" />
             <Route component={NotFoundPage} />
           </Switch>

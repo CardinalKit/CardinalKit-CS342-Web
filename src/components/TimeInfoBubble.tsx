@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { selectUnit } from '@formatjs/intl-utils';
-import { defineMessages, FormattedDate, FormattedMessage, FormattedRelativeTime } from 'react-intl';
+//import { selectUnit } from '@formatjs/intl-utils';
+import { FormattedDate/*, defineMessages, FormattedMessage, FormattedRelativeTime*/ } from 'react-intl';
 
 import { BubbleColor, InfoBubble } from '../ui/InfoBubble';
 
-const messages = defineMessages({
+/*const messages = defineMessages({
   relativeDate: {
     id: 'app.TimeInfoBubble.relativeDate',
     defaultMessage: 'Last {type} {reldate}',
@@ -18,20 +18,20 @@ const messages = defineMessages({
     id: 'app.TimeInfoBubble.active',
     defaultMessage: 'active',
   }
-});
+});*/
 
 export enum TimeType {
   Active = 1,
 }
 
-const typeToMessage = (type: TimeType) => {
+/*const typeToMessage = (type: TimeType) => {
   switch (type) {
     case TimeType.Active:
       return <FormattedMessage {...messages.active} />;
     default:
       return <span />;
   }
-};
+};*/
 
 const assignBubbleBreakpoints = (time: Date, colors: BubbleColor[], msBreakpoints: number[]) => {
   const diffMs = Date.now() - time.getTime();
@@ -45,7 +45,7 @@ const assignBubbleBreakpoints = (time: Date, colors: BubbleColor[], msBreakpoint
 
 const HOUR_MS = 3600000;
 
-const DAY_MS = 86400000;
+//const DAY_MS = 86400000;
 
 const GREEN_ORANGE_RED = [BubbleColor.Green, BubbleColor.Orange, BubbleColor.Red];
 
@@ -67,10 +67,8 @@ export const TimeInfoBubble: React.StatelessComponent<TimeInfoBubbleProps> = (
   props: TimeInfoBubbleProps
 ) => {
 
-  const targetDate : any =  props.time.getTime();
-  //console.log(targetDate);
-  const { value, unit } = selectUnit(Date.now() - targetDate);
-  //console.log(value);
+  //const targetDate : any =  props.time.getTime();
+  //const { value, unit } = selectUnit(Date.now() - targetDate);
 
   return (
     <InfoBubble

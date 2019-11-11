@@ -1,8 +1,6 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { getAllFirebaseUsers, getFirebaseUser } from '../api/getAllUsers';
-
-import { getAuthToken } from '../selectors/loginSelectors';
 
 import {
   FetchUsersAction,

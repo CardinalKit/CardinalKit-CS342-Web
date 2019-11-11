@@ -75,7 +75,7 @@ class UserList extends React.Component<UserListProps> {
   selectDescending = () => this.props.changeUsersSort(undefined, UsersSortOrder.Descending);
 
   render() {
-    const { userList, sortField, sortOrder, eidTypes, hiddenEIDTypes } = this.props;
+    const { userList, sortField, sortOrder } = this.props;
     return (
       <div>
         <Card className="flex flex-wrap justify-center">
@@ -125,7 +125,7 @@ class UserList extends React.Component<UserListProps> {
               </button>
             </div>
           </div>
-          <div className="px-4 my-4 flex items-center justify-center">
+          {/*<div className="px-4 my-4 flex items-center justify-center">
             <p className="font-semibold text-sm p-2">
               <FormattedMessage {...messages.eidPrefixes} />
             </p>
@@ -152,7 +152,7 @@ class UserList extends React.Component<UserListProps> {
                 </button>
               ))}
             </div>
-          </div>
+          </div>*/}
         </Card>
         <div>
           {userList.map(user => {

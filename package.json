@@ -9,7 +9,8 @@
     "core-js": "^2.6.1",
     "date-fns": "2.0.0-alpha.13",
     "eslint-utils": "^1.4.1",
-    "handlebars": "^4.0.14",
+    "firebase": "^5.6.0",
+    "handlebars": "^4.5.1",
     "history": "^4.7.2",
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.13",
@@ -32,8 +33,7 @@
     "redux-saga": "^1.1.1",
     "reselect": "^4.0.0",
     "set-value": "^2.0.1",
-    "whatwg-fetch": "^3.0.0",
-    "firebase": "^5.6.0"
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@types/history": "^4.7.0",

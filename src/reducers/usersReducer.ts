@@ -48,8 +48,8 @@ export function usersReducer(state = initialUsersState, action: UsersAction): Us
       return {
         ...state,
         loading: false,
-        users: new Map(state.users.entries()).set(action.userDetails.ID, {
-          ...state.users.get(action.userDetails.ID),
+        users: new Map(state.users.entries()).set(action.userDetails.userID, {
+          ...state.users.get(action.userDetails.userID),
           ...action.userDetails,
         })
       };
