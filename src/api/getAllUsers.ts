@@ -11,6 +11,16 @@ export function getAllFirebaseUsers(): Promise<app.firestore.QuerySnapshot> {
   });
 }
 
+export function getFirebaseUser(uid: String): Promise<app.firestore.QuerySnapshot> {
+  const firebase = new Firebase();
+  return firebase.user(uid).get().then(function(doc) {
+      return doc;
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+      return error;
+  });
+}
+
 /*
 import { UserDetails } from './user';
 

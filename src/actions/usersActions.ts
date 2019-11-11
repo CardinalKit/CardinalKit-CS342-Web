@@ -47,10 +47,10 @@ export function fetchUsersFailure(error: string): FetchUsersFailureAction {
 
 export interface FetchUserDetailsAction {
   type: UsersActionType.FETCH_USER_DETAILS;
-  userID: number;
+  userID: string;
 }
 
-export function fetchUserDetails(userID: number): FetchUserDetailsAction {
+export function fetchUserDetails(userID: string): FetchUserDetailsAction {
   return {
     type: UsersActionType.FETCH_USER_DETAILS,
     userID,

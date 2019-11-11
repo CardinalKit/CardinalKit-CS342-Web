@@ -97,9 +97,9 @@ class Firebase {
 
   // *** User API ***
 
-  user = uid => this.db.collection(`users/${uid}`);
+  user = uid => this.db.collection('studies/edu.stanford.cs342.sample-study/users').doc(`${uid}`);
 
-  users = () => this.db.collection('users');
+  users = () => this.db.collection('studies/edu.stanford.cs342.sample-study/users/');
 
   // *** Message API ***
 

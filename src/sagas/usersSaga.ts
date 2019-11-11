@@ -1,13 +1,16 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
-import { getAllFirebaseUsers } from '../api/getAllUsers';
+import { getAllFirebaseUsers, getFirebaseUser } from '../api/getAllUsers';
 
 import { getAuthToken } from '../selectors/loginSelectors';
 
 import {
   FetchUsersAction,
+  FetchUserDetailsAction,
   fetchUsersFailure,
   fetchUsersSuccess,
+  fetchUserDetailsSuccess,
+  fetchUserDetailsFailure
 } from '../actions/usersActions';
 import { UsersActionType } from '../constants/usersConstants';
 
@@ -30,14 +33,25 @@ export function* fetchUserSummaries(action: FetchUsersAction) {
   }
 }
 
-export function* fetchUsers(action: /*FetchUserDetailsAction |*/ FetchUsersAction) {
+export function* fetchUserDetails(action: FetchUserDetailsAction) {
+
+  try {
+    const user = yield call(getFirebaseUser, action.userID);
+
+    yield put(fetchUserDetailsSuccess(user.data()));
+  } catch (err) {
+    yield put(fetchUserDetailsFailure(err));
+  }
+}
+
+export function* fetchUsers(action: FetchUserDetailsAction | FetchUsersAction) {
   switch (action.type) {
     case UsersActionType.FETCH_USERS:
       yield fetchUserSummaries(action);
       break;
-    /*case UsersActionType.FETCH_USER_DETAILS:
-      yield fetchUserSummaries(action);// TODO: fetchUserDetails(action);
-      break;*/
+    case UsersActionType.FETCH_USER_DETAILS:
+      yield fetchUserDetails(action);
+      break;
   }
 }
 

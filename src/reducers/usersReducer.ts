@@ -51,7 +51,7 @@ export function usersReducer(state = initialUsersState, action: UsersAction): Us
         users: new Map(state.users.entries()).set(action.userDetails.ID, {
           ...state.users.get(action.userDetails.ID),
           ...action.userDetails,
-        }),
+        })
       };
     case UsersActionType.FETCH_USER_DETAILS_FAILURE:
       return { ...state, loading: false, error: action.error };

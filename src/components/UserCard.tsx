@@ -32,31 +32,31 @@ interface UserCardProps {
 class UserCard extends React.Component<UserCardProps> {
   render() {
 
-    const { userID, lastActive, eID } = this.props.user;
+    const { userID, lastActive, email } = this.props.user;
     const lastActiveTake = new Date(lastActive);
 
     return (
       <Card>
         <div className="flex h-full w-full p-2">
-          <div className="w-32 py-1 flex flex-col justify-between">
+          <div className="w-64 py-1 flex flex-col justify-between">
             <p className="text-xl text-center font-bold">
               <FormattedMessage {...messages.userEidHeader} />
             </p>
             <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
-              {eID}
+              {email}
             </p>
 
             <p className="text-xl text-center font-bold">
               <FormattedMessage {...messages.userIdHeader} />
             </p>
             <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
-              {userID.substring(0, 4) + "..."}
+              {userID.substring(0, 16) + "..."}
             </p>
           </div>
           <div className={`flex-grow flex flex-col justify-between`}>
             {lastActiveTake && <TimeInfoBubble timeType={TimeType.Active} time={lastActiveTake} />}
             {/*lastActive && <TimeInfoBubble timeType={TimeType.Active} time={lastActive} />*/}
-            <Link to={`/`/*`/user/${userID}`*/} className="no-underline">
+            <Link to={`/user/${userID}`} className="no-underline">
               <div className="bg-blue hover:bg-blue-dark border border-blue rounded px-2 py-1 my-1 flex justify-center">
                 <span className="text-white text-center">
                   <FormattedMessage {...messages.viewUserButton} />
