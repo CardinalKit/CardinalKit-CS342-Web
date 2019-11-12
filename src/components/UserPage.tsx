@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-//import SurveysTable from './SurveysTable';
+import SurveysTable from './SurveysTable';
 import UserDetailHeader from './UserDetailHeader';
 
 interface UserPageProps {
@@ -18,7 +18,7 @@ export default class UserPage extends React.PureComponent<UserPageProps> {
     return (
       <div className="container mx-auto ">
         <UserDetailHeader userID={userID} />
-        {/*<SurveysTable userID={userID} />*/}
+        <SurveysTable userID={userID} />
       </div>
     );
   }

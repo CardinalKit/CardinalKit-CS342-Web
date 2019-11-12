@@ -21,6 +21,17 @@ export function getFirebaseUser(uid: String): Promise<app.firestore.QuerySnapsho
   });
 }
 
+export function getSurveys(uid: String): Promise<app.firestore.QuerySnapshot> {
+  const firebase = new Firebase();
+  return firebase.surveys(uid).get().then(function(doc) {
+      return doc;
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+      return error;
+  });
+}
+
+
 /*
 import { UserDetails } from './user';
 

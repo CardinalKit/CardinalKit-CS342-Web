@@ -51,6 +51,7 @@ export function usersReducer(state = initialUsersState, action: UsersAction): Us
         users: new Map(state.users.entries()).set(action.userDetails.userID, {
           ...state.users.get(action.userDetails.userID),
           ...action.userDetails,
+          surveyList: action.surveyList,
         })
       };
     case UsersActionType.FETCH_USER_DETAILS_FAILURE:

@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { getAllFirebaseUsers, getFirebaseUser } from '../api/getAllUsers';
+import { getAllFirebaseUsers, getFirebaseUser, getSurveys } from '../api/getAllUsers';
 
 import {
   FetchUsersAction,
@@ -36,7 +36,10 @@ export function* fetchUserDetails(action: FetchUserDetailsAction) {
   try {
     const user = yield call(getFirebaseUser, action.userID);
 
-    yield put(fetchUserDetailsSuccess(user.data()));
+    const surveys = yield call(getSurveys, action.userID);
+    const surveyList = surveys.docs.map((i: app.firestore.QueryDocumentSnapshot) => i.data());
+
+    yield put(fetchUserDetailsSuccess(user.data(), surveyList));
   } catch (err) {
     yield put(fetchUserDetailsFailure(err));
   }

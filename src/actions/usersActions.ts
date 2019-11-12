@@ -1,4 +1,5 @@
 import { UserDetails } from '../api/user';
+import { Survey } from '../api/survey';
 import { UsersActionType, UsersSortField, UsersSortOrder } from '../constants/usersConstants';
 
 export type UsersAction =
@@ -60,12 +61,14 @@ export function fetchUserDetails(userID: string): FetchUserDetailsAction {
 export interface FetchUserDetailsSuccessAction {
   type: UsersActionType.FETCH_USER_DETAILS_SUCCESS;
   userDetails: UserDetails;
+  surveyList: Survey[];
 }
 
-export function fetchUserDetailsSuccess(userDetails: UserDetails): FetchUserDetailsSuccessAction {
+export function fetchUserDetailsSuccess(userDetails: UserDetails, surveyList: Survey[]): FetchUserDetailsSuccessAction {
   return {
     type: UsersActionType.FETCH_USER_DETAILS_SUCCESS,
     userDetails,
+    surveyList,
   };
 }
 

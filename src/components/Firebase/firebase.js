@@ -101,11 +101,10 @@ class Firebase {
 
   users = () => this.db.collection('studies/edu.stanford.cs342.sample-study/users/');
 
-  // *** Message API ***
+  // *** Surveys API ***
 
-  message = uid => this.db.collection(`messages/${uid}`);
+  surveys = uid => this.db.collection(`studies/edu.stanford.cs342.sample-study/users/${uid}/surveys/`);
 
-  messages = () => this.db.collection('messages');
 }
 
 export default Firebase;
