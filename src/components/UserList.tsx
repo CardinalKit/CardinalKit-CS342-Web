@@ -45,7 +45,7 @@ const messages = defineMessages({
   },
   eid: {
     id: 'app.UserList.eid',
-    defaultMessage: 'EID',
+    defaultMessage: 'Email',
   },
   eidTypeFormat: {
     id: 'app.UserList.eidTypeFormat',

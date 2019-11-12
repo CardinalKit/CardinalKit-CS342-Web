@@ -17,7 +17,7 @@ const messages = defineMessages({
   },
   userEidHeader: {
     id: 'app.containers.UserCard.eid',
-    defaultMessage: 'EID',
+    defaultMessage: 'Email',
   },
   viewUserButton: {
     id: 'app.containers.UserCard.viewUserButton',
@@ -38,18 +38,18 @@ class UserCard extends React.Component<UserCardProps> {
     return (
       <Card>
         <div className="flex h-full w-full p-2">
-          <div className="w-64 py-1 flex flex-col justify-between">
+          <div className="w-1/3 py-1 flex flex-col justify-between">
             <p className="text-xl text-center font-bold">
               <FormattedMessage {...messages.userEidHeader} />
             </p>
-            <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
+            <p className="font-mono p-1 text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
               {email}
             </p>
 
             <p className="text-xl text-center font-bold">
               <FormattedMessage {...messages.userIdHeader} />
             </p>
-            <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
+            <p className="font-mono p-1 text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
               {userID.substring(0, 16) + "..."}
             </p>
           </div>
