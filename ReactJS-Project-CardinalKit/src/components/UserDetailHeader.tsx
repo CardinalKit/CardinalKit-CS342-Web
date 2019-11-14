@@ -61,7 +61,7 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
                   <FormattedMessage {...messages.userEidHeader} />
                 </p>
                 <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm px-4 ml-4">
-                  {'E' + userDetails.eID}
+                  {userDetails.eID}
                 </p>
               </div>
             </div>
