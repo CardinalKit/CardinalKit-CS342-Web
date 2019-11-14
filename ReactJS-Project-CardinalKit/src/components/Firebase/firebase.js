@@ -10,6 +10,7 @@ const config = {
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET || "cs342-master-sample.appspot.com",
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID || "267563013930",
   appId: process.env.REACT_APP_ID || "1:267563013930:web:99eeeff653b0f07accb053",
+  iOSAppBundleId: process.env.IOS_APP_ID || "edu.stanford.cs342.sample-study",
 };
 
 class Firebase {
@@ -97,13 +98,13 @@ class Firebase {
 
   // *** User API ***
 
-  user = uid => this.db.collection('studies/edu.stanford.cs342.sample-study/users').doc(`${uid}`);
+  user = uid => this.db.collection(`studies/${config.iOSAppBundleId}/users`).doc(`${uid}`);
 
-  users = () => this.db.collection('studies/edu.stanford.cs342.sample-study/users/');
+  users = () => this.db.collection(`studies/${config.iOSAppBundleId}/users/`);
 
   // *** Surveys API ***
 
-  surveys = uid => this.db.collection(`studies/edu.stanford.cs342.sample-study/users/${uid}/surveys/`);
+  surveys = uid => this.db.collection(`studies/${config.iOSAppBundleId}/users/${uid}/surveys/`);
 
 }
 
