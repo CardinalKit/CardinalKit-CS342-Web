@@ -9,6 +9,9 @@
 # production
 /build
 /out
+/deploy
+/public
+.yarn
 
 # misc
 .DS_Store
