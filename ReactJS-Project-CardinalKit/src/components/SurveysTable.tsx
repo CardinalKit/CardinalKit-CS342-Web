@@ -1,24 +1,23 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import moment from 'moment';
+import Pagination from './Pagination'
+
+
+
 
 import { selectUserDetails } from '../selectors/usersSelectors';
 
-import { Survey } from '../api/survey';
 import { UserDetails } from '../api/user';
+
 
 import { Store } from '../reducers/rootReducer';
 
-import { defineMessages, FormattedDate, FormattedMessage } from 'react-intl';
-import { TextInfoBubble } from './TextInfoBubble';
+import { defineMessages } from 'react-intl';
 import { Card } from '../ui/Card';
-import {
-  CardTable,
-  CardTableCol,
-  CardTableHeader,
-  CardTableRow,
-  CardTableTitle,
-} from '../ui/CardTable';
+import { getSurvey, getSurveys } from '../api/getAllUsers';
+import ReactTable from 'react-table-6';
 
 const messages = defineMessages({
   surveyTableHeader: {
@@ -39,56 +38,110 @@ const messages = defineMessages({
   },
 });
 
-class SurveysTable extends React.Component<SurveyHeaderProps> {
+interface SurveyList {
+  userID: string,
+  identifier: string,
+  startDate: string,
+  endDate: string,
+}
+
+interface State {
+  surveyList: SurveyList[]
+  surveyIds: string[]
+}
+
+class SurveysTable extends React.Component<SurveyHeaderProps, State> {
+  constructor(props) {
+    super(props)
+    this.state = {
+      surveyIds: [],
+      surveyList: []
+    }
+  }
+
+
+  componentDidMount() {
+    const { userID } = this.props;
+    const tempSurveyList: any[] = [];
+    getSurveys(userID).then((querySnapshot) => {
+      const data = querySnapshot.docs.map(doc => doc.id);
+      this.setState({
+        surveyIds: [...data]
+      })
+      data.map((surveyId) => {
+        return getSurvey(userID, surveyId)
+          .then((data) => {
+            if (data.payload) {
+              const startDate = moment(data?.payload?.startDate.substring(0, 10)).format('ll')
+              const identifier = data?.payload?.identifier
+              const surveyData = {
+                startDate,
+                identifier,
+                view:
+                  <div><span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                    View Response</span>
+                  </div>
+              }
+              tempSurveyList.push(surveyData)
+              this.setState({
+                surveyList: [...tempSurveyList]
+              })
+            }
+          })
+      })
+    })
+  }
+
   render() {
+    const { userID } = this.props;
 
-    const { userDetails } = this.props;
-
-    if (!userDetails || !userDetails.surveyList) {
+    if (!userID) {
       return (
         <Card>
-          <p className="p-5">Loading...</p>
+          <p className="p-5">{userID}</p>
         </Card>
       );
     }
 
-    const { surveyList } = userDetails;
-
+    const columns = [
+      {
+        Header: () => (
+          <div className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">Survey Name</div>
+        ),
+        accessor: 'identifier',
+        className: 'font-semibold',
+        width: 300
+      },
+      {
+        Header: () => (
+          <div className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">survey submitted</div>
+        ),
+        accessor: 'startDate',
+        className: "px-4 py-3 text-sm",
+        width: 200
+      },
+      {
+        Header: () => (
+          <div className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">action</div>
+        ),
+        accessor: 'view',
+        filterable: false,
+        width: 400
+      }
+    ];
     return (
-      <CardTable>
-        <CardTableTitle>
-          <FormattedMessage {...messages.surveyTableHeader} />
-        </CardTableTitle>
-        <CardTableHeader>
-          <CardTableCol widthPercent={25}>
-            <FormattedMessage {...messages.nameHeader} />
-          </CardTableCol>
-          <CardTableCol widthPercent={25}>
-            <FormattedMessage {...messages.dateHeader} />
-          </CardTableCol>
-          <CardTableCol widthPercent={25}>
-            <FormattedMessage {...messages.surveyIdHeader} />
-          </CardTableCol>
-        </CardTableHeader>
-        {surveyList.map((survey: Survey, i: number) => (
-          <CardTableRow key={`survey-${survey.taskRunUUID}`} isLast={surveyList.length - 1 === i}>
-            <CardTableCol widthPercent={25}>
-              <TextInfoBubble label={survey.identifier} />
-            </CardTableCol>
-            <CardTableCol widthPercent={25}>
-              <FormattedDate
-                value={survey.startDate}
-                year="numeric"
-                month="numeric"
-                day="2-digit"
-              />
-            </CardTableCol>
-            <CardTableCol className="font-mono text-sm" widthPercent={25}>
-              {survey.taskRunUUID}
-            </CardTableCol>
-          </CardTableRow>
-        ))}
-      </CardTable>
+      <div className="container px-6 mx-auto " >
+        <div className="grid gap-6 mb-8 w-full mt-40 ">
+          <ReactTable
+            data={this.state.surveyList}
+            columns={columns}
+            className="surveyTable"
+            defaultPageSize={5}
+            PaginationComponent={Pagination}
+            filterable={true}
+          />
+        </div>
+      </div>
     );
   }
 }

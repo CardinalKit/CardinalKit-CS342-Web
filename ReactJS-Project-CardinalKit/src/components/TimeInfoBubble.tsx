@@ -1,7 +1,5 @@
 import * as React from 'react';
-
-//import { selectUnit } from '@formatjs/intl-utils';
-import { FormattedDate/*, defineMessages, FormattedMessage, FormattedRelativeTime*/ } from 'react-intl';
+import { FormattedDate } from 'react-intl';
 
 import { BubbleColor, InfoBubble } from '../ui/InfoBubble';
 

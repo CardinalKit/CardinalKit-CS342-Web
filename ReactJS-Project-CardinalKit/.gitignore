@@ -25,3 +25,5 @@ junit.xml
 
 # Generated css
 src/tailwind.out.css
+
+/.env

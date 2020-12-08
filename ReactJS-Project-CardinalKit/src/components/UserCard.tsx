@@ -55,7 +55,6 @@ class UserCard extends React.Component<UserCardProps> {
           </div>
           <div className={`flex-grow flex flex-col justify-between`}>
             {lastActiveTake && <TimeInfoBubble timeType={TimeType.Active} time={lastActiveTake} />}
-            {/*lastActive && <TimeInfoBubble timeType={TimeType.Active} time={lastActive} />*/}
             <Link to={`/user/${userID}`} className="no-underline">
               <div className="bg-blue hover:bg-blue-dark border border-blue rounded px-2 py-1 my-1 flex justify-center">
                 <span className="text-white text-center">

@@ -17,7 +17,7 @@ import '@formatjs/intl-relativetimeformat/dist/locale-data/en'; // Add locale da
 import './index.css';
 import { unregister } from './registerServiceWorker';
 import './styles/root.css';
-import './tailwind.out.css';
+// import './tailwind.out.css';
 
 import store from './store';
 
