@@ -38,7 +38,7 @@ export class LoginPage extends React.Component {
 
   sendMail = (email, code) => {
     window.Email.send({
-      SecureToken: 'b432cf0c-5911-4601-a8e2-374473f6dbf4',
+      SecureToken: process.env.REACT_APP_EMAIL_TOKEN,
       To: email,
       From: process.env.REACT_APP_FROM_EMAIL,
       Subject: 'Verfication code',
