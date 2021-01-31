@@ -1,22 +1,25 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+const admin = require('firebase-admin');
 
 const config = {
-  apiKey: process.env.REACT_APP_API_KEY || "AIzaSyCVzML6v4C16HNjUZN_xnEX5RWJmDq3YUU",
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN || "cs342-master-sample.firebaseapp.com",
-  databaseURL: process.env.REACT_APP_DATABASE_URL || "https://cs342-master-sample.firebaseio.com",
-  projectId: process.env.REACT_APP_PROJECT_ID || "cs342-master-sample",
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET || "cs342-master-sample.appspot.com",
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID || "267563013930",
-  appId: process.env.REACT_APP_ID || "1:267563013930:web:99eeeff653b0f07accb053",
-  iOSAppBundleId: process.env.IOS_APP_ID || "edu.stanford.cs342.sample-study", //as setup on your iOS project
+  apiKey: process.env.REACT_APP_API_KEY || 'AIzaSyCVzML6v4C16HNjUZN_xnEX5RWJmDq3YUU',
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN || 'cs342-master-sample.firebaseapp.com',
+  databaseURL: process.env.REACT_APP_DATABASE_URL || 'https://cs342-master-sample.firebaseio.com',
+  projectId: process.env.REACT_APP_PROJECT_ID || 'cs342-master-sample',
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET || 'cs342-master-sample.appspot.com',
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID || '267563013930',
+  appId: process.env.REACT_APP_ID || '1:267563013930:web:99eeeff653b0f07accb053',
+  iOSAppBundleId: process.env.REACT_APP_IOS_APP_ID || 'edu.stanford.cs342.sample-study', // as setup on your iOS project
 };
+const firebaseApp = app.initializeApp(config);
+const db = firebaseApp.firestore();
 
 class Firebase {
   constructor() {
     if (!app.apps.length) {
-        app.initializeApp(config);
+      admin.initializeApp(config);
     }
 
     /* Helper */
@@ -28,6 +31,7 @@ class Firebase {
 
     this.auth = app.auth();
     this.db = app.firestore();
+    // this.functions = app.functions();
 
     /* Social Sign In Method Provider */
 
@@ -44,16 +48,13 @@ class Firebase {
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
 
-  doSignInWithGoogle = () =>
-    this.auth.signInWithPopup(this.googleProvider);
+  doSignInWithGoogle = () => this.auth.signInWithPopup(this.googleProvider);
 
-  doSignInWithFacebook = () =>
-    this.auth.signInWithPopup(this.facebookProvider);
+  doSignInWithFacebook = () => this.auth.signInWithPopup(this.facebookProvider);
 
-  doSignInWithTwitter = () =>
-    this.auth.signInWithPopup(this.twitterProvider);
+  doSignInWithTwitter = () => this.auth.signInWithPopup(this.twitterProvider);
 
-  doSignOut = () => this.auth.signOut();
+  doSignOut = () => this.auth.signOut()
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
@@ -62,8 +63,7 @@ class Firebase {
       url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
     });
 
-  doPasswordUpdate = password =>
-    this.auth.currentUser.updatePassword(password);
+  doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
   // *** Merge Auth and DB User API *** //
 
@@ -105,7 +105,7 @@ class Firebase {
   // *** Surveys API ***
 
   surveys = uid => this.db.collection(`studies/${config.iOSAppBundleId}/users/${uid}/surveys/`);
-
 }
 
+export { db };
 export default Firebase;
