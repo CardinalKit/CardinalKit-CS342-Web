@@ -15,13 +15,13 @@ import { Card } from '../ui/Card';
 import { TimeInfoBubble, TimeType } from './TimeInfoBubble';
 
 const messages = defineMessages({
-  userIdHeader: {
+  userEmailHeader: {
     id: 'app.containers.UserDetailHeader.userid',
     defaultMessage: 'Email:',
   },
-  userEidHeader: {
-    id: 'app.containers.UserDetailHeader.eid',
-    defaultMessage: 'User EID:',
+  userIdHeader: {
+    id: 'app.containers.UserDetailHeader.id',
+    defaultMessage: 'User ID:',
   },
 });
 
@@ -50,7 +50,7 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
             <div className="flex justify-between items-center h-12">
               <div className="flex justify-center items-center h-8 px-4">
                 <p className="text-xl text-center font-bold">
-                  <FormattedMessage {...messages.userIdHeader} />
+                  <FormattedMessage {...messages.userEmailHeader} />
                 </p>
                 <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm px-4 ml-4">
                   {userDetails.email}
@@ -58,16 +58,14 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
               </div>
               <div className="flex justify-center items-center h-8 px-4">
                 <p className="text-xl text-center font-bold">
-                  <FormattedMessage {...messages.userEidHeader} />
+                  <FormattedMessage {...messages.userIdHeader} />
                 </p>
                 <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm px-4 ml-4">
-                  {userDetails.eID}
+                  {userDetails.userID}
                 </p>
               </div>
             </div>
-            {lastActiveTake && (
-              <TimeInfoBubble timeType={TimeType.Active} time={lastActiveTake} />
-            )}
+            {lastActiveTake && <TimeInfoBubble timeType={TimeType.Active} time={lastActiveTake} />}
           </div>
         </div>
       </Card>

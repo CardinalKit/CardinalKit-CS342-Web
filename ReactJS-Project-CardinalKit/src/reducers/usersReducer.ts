@@ -30,8 +30,8 @@ export function usersReducer(state = initialUsersState, action: UsersAction): Us
       return { ...state, loading: true };
     case UsersActionType.FETCH_USERS_SUCCESS:
       const newUsersMap = action.users.reduce((acc: Map<string, UserDetails>, cur: UserDetails) => {
-        return acc.set(cur.eID, {
-          ...acc.get(cur.eID),
+        return acc.set(cur.userID, {
+          ...acc.get(cur.userID),
           ...cur,
         });
       }, new Map(state.users.entries()));
@@ -52,7 +52,7 @@ export function usersReducer(state = initialUsersState, action: UsersAction): Us
           ...state.users.get(action.userDetails.userID),
           ...action.userDetails,
           surveyList: action.surveyList,
-        })
+        }),
       };
     case UsersActionType.FETCH_USER_DETAILS_FAILURE:
       return { ...state, loading: false, error: action.error };

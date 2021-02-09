@@ -31,7 +31,6 @@ interface UserCardProps {
 
 class UserCard extends React.Component<UserCardProps> {
   render() {
-
     const { userID, lastActive, email } = this.props.user;
     const lastActiveTake = new Date(lastActive);
 
@@ -50,7 +49,7 @@ class UserCard extends React.Component<UserCardProps> {
               <FormattedMessage {...messages.userIdHeader} />
             </p>
             <p className="font-mono p-1 text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
-              {userID.substring(0, 16) + "..."}
+              {userID}
             </p>
           </div>
           <div className={`flex-grow flex flex-col justify-between`}>

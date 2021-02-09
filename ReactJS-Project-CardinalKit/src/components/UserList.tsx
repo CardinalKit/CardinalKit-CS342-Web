@@ -11,7 +11,6 @@ import { UserDetails } from '../api/user';
 import { UsersSortField, UsersSortOrder } from '../constants/usersConstants';
 import { Store } from '../reducers/rootReducer';
 import {
-  selectEIDTypes,
   selectHiddenEIDTypes,
   selectUsers,
   selectUsersSortField,
@@ -62,7 +61,6 @@ const messages = defineMessages({
 });
 
 class UserList extends React.Component<UserListProps> {
-
   componentDidMount() {
     const { loadUsers } = this.props;
     loadUsers();
@@ -156,7 +154,7 @@ class UserList extends React.Component<UserListProps> {
         </Card>
         <div>
           {userList.map(user => {
-            return <UserCard key={user.eID} user={user} />;
+            return <UserCard key={user.userID} user={user} />;
           })}
         </div>
       </div>
@@ -171,7 +169,6 @@ interface UserListStateProps {
   sortField: UsersSortField;
   // Defined in terms of hidden, rather than shown to simplify reducer
   hiddenEIDTypes: string[];
-  eidTypes: string[];
 }
 
 interface UserListDispatchProps {
@@ -190,7 +187,6 @@ function mapStateToProps(state: Store): UserListStateProps {
     sortOrder: selectUsersSortOrder(state),
     sortField: selectUsersSortField(state),
     hiddenEIDTypes: selectHiddenEIDTypes(state),
-    eidTypes: selectEIDTypes(state),
   };
 }
 

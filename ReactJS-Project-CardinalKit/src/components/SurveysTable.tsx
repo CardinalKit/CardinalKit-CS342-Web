@@ -10,7 +10,6 @@ import { UserDetails } from '../api/user';
 import { Store } from '../reducers/rootReducer';
 
 import { defineMessages, FormattedDate, FormattedMessage } from 'react-intl';
-import { TextInfoBubble } from './TextInfoBubble';
 import { Card } from '../ui/Card';
 import {
   CardTable,
@@ -19,6 +18,7 @@ import {
   CardTableRow,
   CardTableTitle,
 } from '../ui/CardTable';
+import { TextInfoBubble } from './TextInfoBubble';
 
 const messages = defineMessages({
   surveyTableHeader: {
@@ -41,7 +41,6 @@ const messages = defineMessages({
 
 class SurveysTable extends React.Component<SurveyHeaderProps> {
   render() {
-
     const { userDetails } = this.props;
 
     if (!userDetails || !userDetails.surveyList) {
@@ -71,20 +70,23 @@ class SurveysTable extends React.Component<SurveyHeaderProps> {
           </CardTableCol>
         </CardTableHeader>
         {surveyList.map((survey: Survey, i: number) => (
-          <CardTableRow key={`survey-${survey.taskRunUUID}`} isLast={surveyList.length - 1 === i}>
+          <CardTableRow
+            key={`survey-${survey.payload.taskRunUUID}`}
+            isLast={surveyList.length - 1 === i}
+          >
             <CardTableCol widthPercent={25}>
-              <TextInfoBubble label={survey.identifier} />
+              <TextInfoBubble label={survey.payload.identifier} />
             </CardTableCol>
             <CardTableCol widthPercent={25}>
               <FormattedDate
-                value={survey.startDate}
+                value={survey.payload.startDate}
                 year="numeric"
                 month="numeric"
                 day="2-digit"
               />
             </CardTableCol>
             <CardTableCol className="font-mono text-sm" widthPercent={25}>
-              {survey.taskRunUUID}
+              {survey.payload.taskRunUUID}
             </CardTableCol>
           </CardTableRow>
         ))}
@@ -93,8 +95,7 @@ class SurveysTable extends React.Component<SurveyHeaderProps> {
   }
 }
 
-type SurveyHeaderProps = SurveysStoreProps &
-  SurveysTableProps;
+type SurveyHeaderProps = SurveysStoreProps & SurveysTableProps;
 
 interface SurveysStoreProps {
   userDetails: UserDetails | undefined;
@@ -104,10 +105,7 @@ interface SurveysTableProps {
   userID: string;
 }
 
-function mapStateToProps(
-  state: Store,
-  props: SurveysTableProps
-): SurveysStoreProps {
+function mapStateToProps(state: Store, props: SurveysTableProps): SurveysStoreProps {
   return {
     userDetails: selectUserDetails(state, props),
   };
@@ -117,12 +115,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
   return {};
 }
 
-export default connect<
-  SurveysStoreProps,
-  {},
-  SurveysTableProps,
-  Store
->(
+export default connect<SurveysStoreProps, {}, SurveysTableProps, Store>(
   mapStateToProps,
   mapDispatchToProps
 )(SurveysTable);

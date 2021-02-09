@@ -37,32 +37,18 @@ const selectRawUserList = createSelector(
   (userMap: Map<string, UserDetails>) => Array.from(userMap.values())
 );
 
-export const selectFilteredUserList = createSelector(
-  [selectRawUserList, selectHiddenEIDTypes],
-  (users: UserDetails[], hiddenEIDTypes: string[]) =>
-    users.filter(user => !hiddenEIDTypes.includes(user.eID.substring(0, 3)))
-);
-
 export const selectUserDetails = (state: Store, props: { userID: string }) => {
   return selectRawUserMap(state).get(props.userID);
 };
 
-export const selectEIDTypes = createSelector(
-  [selectRawUserList],
-  (users: UserDetails[]) => Array.from(new Set(users.map(user => user.eID.substring(0, 3)))).sort()
-);
-
 export const selectUsers = createSelector(
-  [selectFilteredUserList, selectUsersSortOrder, selectUsersSortField],
+  [selectRawUserList, selectUsersSortOrder, selectUsersSortField],
   (users: UserDetails[], sortOrder: UsersSortOrder, sortField: UsersSortField) => {
     let cmp;
     switch (sortField) {
       case UsersSortField.UserID:
-        cmp = (user1: UserDetails, user2: UserDetails): number => parseInt(user1.ID, 10) - parseInt(user2.ID, 10);
-        break;
-      case UsersSortField.UserEID:
         cmp = (user1: UserDetails, user2: UserDetails): number =>
-          parseInt(user1.eID, 10) - parseInt(user2.eID, 10);
+          parseInt(user1.ID, 10) - parseInt(user2.ID, 10);
         break;
     }
     if (sortOrder === UsersSortOrder.Ascending) {
