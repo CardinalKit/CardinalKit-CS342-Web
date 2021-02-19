@@ -14,6 +14,8 @@ import { Card } from '../ui/Card';
 
 import { TimeInfoBubble, TimeType } from './TimeInfoBubble';
 
+import { RegisterForm } from './RegisterForm';
+
 const messages = defineMessages({
   userEmailHeader: {
     id: 'app.containers.UserDetailHeader.userid',
@@ -33,40 +35,12 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
   render() {
     const { userDetails } = this.props;
 
-    if (!userDetails) {
-      return (
-        <Card>
-          <p className="p-5">Loading...</p>
-        </Card>
-      );
-    }
-
     return (
-      <Card>
-        <div className="flex h-full w-full p-2">
-          <div className="flex-grow flex flex-col justify-between">
-            <div className="flex justify-between items-center h-12">
-              <div className="flex justify-center items-center h-8 px-4">
-                <p className="text-xl text-center font-bold">
-                  <FormattedMessage {...messages.userEmailHeader} />
-                </p>
-                <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm px-4 ml-4">
-                  {userDetails.email}
-                </p>
-              </div>
-              <div className="flex justify-center items-center h-8 px-4">
-                <p className="text-xl text-center font-bold">
-                  <FormattedMessage {...messages.userIdHeader} />
-                </p>
-                <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm px-4 ml-4">
-                  {userDetails.userID}
-                </p>
-              </div>
-            </div>
-            {<TimeInfoBubble timeType={TimeType.Active} time={userDetails.lastActive} />}
-          </div>
-        </div>
-      </Card>
+      <div className="container mx-auto ">
+        <Card>
+          <RegisterForm />
+        </Card>
+      </div>
     );
   }
 }

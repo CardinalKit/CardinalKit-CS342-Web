@@ -18,7 +18,7 @@ export default class UserPage extends React.PureComponent<UserPageProps> {
     return (
       <div className="container mx-auto ">
         <UserDetailHeader userID={userID} />
-        <SurveysTable userID={userID} />
+        {/* <SurveysTable userID={userID} /> */}
       </div>
     );
   }

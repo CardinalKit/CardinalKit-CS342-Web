@@ -1,36 +1,53 @@
-import Firebase from '../components/Firebase';
 import app from 'firebase/app';
+import Firebase from '../components/Firebase';
 
 export function getAllFirebaseUsers(): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
-  return firebase.users().get().then(function(doc) {
+  return firebase
+    .users()
+    .get()
+    .then(function(doc) {
       return doc;
-  }).catch(function(error) {
-      console.log("Error getting document:", error);
+    })
+    .catch(function(error) {
+      console.log('Error getting document:', error);
       return error;
-  });
+    });
+  // return firebase.users().get().then(function(doc) {
+  //     return doc;
+  // }).catch(function(error) {
+  //     console.log("Error getting document:", error);
+  //     return error;
+  // });
 }
 
 export function getFirebaseUser(uid: String): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
-  return firebase.user(uid).get().then(function(doc) {
+  return firebase
+    .user(uid)
+    .get()
+    .then(function(doc) {
       return doc;
-  }).catch(function(error) {
-      console.log("Error getting document:", error);
+    })
+    .catch(function(error) {
+      console.log('Error getting document:', error);
       return error;
-  });
+    });
 }
 
 export function getSurveys(uid: String): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
-  return firebase.surveys(uid).get().then(function(doc) {
+  return firebase
+    .surveys(uid)
+    .get()
+    .then(function(doc) {
       return doc;
-  }).catch(function(error) {
-      console.log("Error getting document:", error);
+    })
+    .catch(function(error) {
+      console.log('Error getting document:', error);
       return error;
-  });
+    });
 }
-
 
 /*
 import { UserDetails } from './user';
