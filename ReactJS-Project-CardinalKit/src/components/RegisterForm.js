@@ -11,6 +11,7 @@ class RegisterForm extends React.Component {
       first_name: '',
       last_name: '',
       email: '',
+      medication: '',
     };
 
     this.state = this.initialState;
@@ -29,6 +30,7 @@ class RegisterForm extends React.Component {
       firstName: this.state.first_name,
       lastName: this.state.last_name,
       email: this.state.email,
+      medications: this.state.medication,
       lastActive: 0,
       userID: this.state.first_name + this.state.last_name,
     };
@@ -74,6 +76,16 @@ class RegisterForm extends React.Component {
                   type="text"
                   name="email"
                   value={this.state.email}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="flex flex-col mb-4 mr-4">
+                <label className="mb-2 font-bold text-lg text-grey-darkest">Medication:</label>
+                <input
+                  className="border py-2 px-3 text-grey-darkest"
+                  type="text"
+                  name="medication"
+                  value={this.state.medication}
                   onChange={this.handleChange}
                 />
               </div>

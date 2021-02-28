@@ -1,11 +1,11 @@
 import app from 'firebase/app';
 import Firebase from '../components/Firebase';
 
-let actionCodeSettings = {
+const actionCodeSettings = {
   // URL you want to redirect back to. The domain (www.example.com) for this
   // URL must be in the authorized domains list in the Firebase Console.
   // url: 'https://www.example.com/finishSignUp?cartId=1234',
-  url: 'cs342-alpha-9bb64.firebaseapp.com',
+  url: 'https://cs342-alpha-9bb64.web.app',
   // This must be true.
   handleCodeInApp: true,
   // iOS: {
@@ -16,13 +16,13 @@ let actionCodeSettings = {
   //   installApp: true,
   //   minimumVersion: '12'
   // },
-  dynamicLinkDomain: 'cs342-alpha-9bb64.firebaseapp.com',
+  dynamicLinkDomain: 'cs342alpha.page.link',
 };
 
 export function registerNewUser(user: any): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
   console.log('Registering a new user!');
-  let userRef = firebase.db
+  const userRef = firebase.db
     .collection(`registered-patients`)
     .add(user)
     .then((docRef: any) => {
@@ -45,8 +45,8 @@ export function registerNewUser(user: any): Promise<app.firestore.QuerySnapshot>
       // ...
     })
     .catch(error => {
-      let errorCode = error.code;
-      let errorMessage = error.message;
+      const errorCode = error.code;
+      const errorMessage = error.message;
       console.log('email failed!', errorCode, errorMessage);
       // ...
     });

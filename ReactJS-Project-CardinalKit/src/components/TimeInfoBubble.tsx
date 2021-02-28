@@ -56,7 +56,7 @@ const assignBubbleColor = (time: number, type: TimeType) => {
     return GREEN_ORANGE_RED[2];
   }
 
-  let date_time: Date = new Date(time);
+  const date_time: Date = new Date(time);
   switch (type) {
     case TimeType.Active:
       return assignBubbleBreakpoints(date_time, GREEN_ORANGE_RED, [24 * HOUR_MS, 72 * HOUR_MS]);

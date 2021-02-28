@@ -10,4 +10,5 @@ export interface UserDetails {
   createdAt?: Date;
   surveyList?: Survey[];
   lastActive: number;
+  medications: string;
 }
