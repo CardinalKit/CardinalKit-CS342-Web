@@ -67,7 +67,7 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
             {/* <h4>Medications:</h4> */}
             <div className="flex justify-between items-center h-12">
               <p className="font-mono text-center border boarder-grey-light rounded-sm px-4 ml-4">
-                    {userDetails.medications}
+                {userDetails.medications}
               </p>
             </div>
           </div>
