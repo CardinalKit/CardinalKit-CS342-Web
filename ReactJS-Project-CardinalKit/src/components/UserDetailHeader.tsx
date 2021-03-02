@@ -44,29 +44,28 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
     return (
       <Card>
         <div className="flex h-full w-full p-2">
-          <div className="flex-grow flex flex-col justify-between">
+          <div className="flex-grow flex flex-col w-full justify-between">
+            {<TimeInfoBubble timeType={TimeType.Active} time={userDetails.lastActive} />}
             <div className="flex justify-between items-center h-12">
-              <div className="flex justify-center items-center h-8 px-4">
+              <div className="flex justify-center items-center h-8">
                 <p className="text-xl text-center font-bold">
                   <FormattedMessage {...messages.userEmailHeader} />
                 </p>
-                <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm px-4 ml-4">
+                <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm ml-4">
                   {userDetails.email}
                 </p>
               </div>
-              <div className="flex justify-center items-center h-8 px-4">
+              <div className="flex justify-center items-center h-8">
                 <p className="text-xl text-center font-bold">
                   <FormattedMessage {...messages.userIdHeader} />
                 </p>
-                <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm px-4 ml-4">
+                <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm ml-4">
                   {userDetails.userID}
                 </p>
               </div>
             </div>
-            {<TimeInfoBubble timeType={TimeType.Active} time={userDetails.lastActive} />}
-            {/* <h4>Medications:</h4> */}
             <div className="flex justify-between items-center h-12">
-              <p className="font-mono text-center border boarder-grey-light rounded-sm px-4 ml-4">
+              <p className="font-mono text-center border boarder-grey-light rounded-sm ml-4">
                 {userDetails.medications}
               </p>
             </div>

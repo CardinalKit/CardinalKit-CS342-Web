@@ -53,13 +53,6 @@ class UserCard extends React.Component<UserCardProps> {
             <p className="font-mono p-1 text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
               {email}
             </p>
-
-            {/* <p className="text-xl text-center font-bold">
-              <FormattedMessage {...messages.userIdHeader} />
-            </p>
-            <p className="font-mono p-1 text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
-              {userID}
-            </p> */}
           </div>
           <div className={`flex-grow flex flex-col justify-between`}>
             {<TimeInfoBubble timeType={TimeType.Active} time={lastActive} />}
