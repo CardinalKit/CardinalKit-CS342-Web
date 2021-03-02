@@ -1,15 +1,13 @@
 import app from 'firebase/app';
 import Firebase from '../components/Firebase';
 
-
 export function registerNewUser(user: any): Promise<app.firestore.QuerySnapshot> {
-
-  var actionCodeSettings = {
-    // include email in link so it can be passed to iOS 
+  let actionCodeSettings = {
+    // include email in link so it can be passed to iOS
     url: 'https://cs342-alpha-9bb64.web.app/?email=' + user.email,
     handleCodeInApp: true,
     iOS: {
-      bundleId: 'https://cs342-alpha-9bb64.web.app'
+      bundleId: 'https://cs342-alpha-9bb64.web.app',
     },
     dynamicLinkDomain: 'cs342alpha.page.link',
   };

@@ -15,12 +15,15 @@ import {
 } from '../actions/loginActions';
 
 import Firebase from '../components/Firebase';
+import { isAdmin } from '../api/admin';
 
 export function* loginUser(action: LoginUserAction) {
   try {
-    const result = yield call(new Firebase().doSignInWithGoogle);
 
-    if (result && result.user && result.user.email && result.user.email.endsWith("@stanford.edu")) {
+    const result = yield call(new Firebase().doSignInWithGoogle);
+    const isProvider = yield call(isAdmin, result.user.email);
+
+    if (result && result.user && result.user.email && isProvider) {
       yield put(loginUserSuccess(result.credential.accessToken));
     } else {
       yield put(loginUserFailure("Invalid Email Address"));
