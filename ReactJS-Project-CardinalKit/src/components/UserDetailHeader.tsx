@@ -15,13 +15,21 @@ import { Card } from '../ui/Card';
 import { TimeInfoBubble, TimeType } from './TimeInfoBubble';
 
 const messages = defineMessages({
-  userEmailHeader: {
-    id: 'app.containers.UserDetailHeader.userid',
-    defaultMessage: 'Email:',
+  userNameHeader: {
+    id: 'app.containers.UserCard.name',
+    defaultMessage: 'Patient Name',
   },
   userIdHeader: {
-    id: 'app.containers.UserDetailHeader.id',
-    defaultMessage: 'User ID:',
+    id: 'app.containers.UserCard.userid',
+    defaultMessage: 'ID',
+  },
+  userEidHeader: {
+    id: 'app.containers.UserCard.eid',
+    defaultMessage: 'Email',
+  },
+  viewUserButton: {
+    id: 'app.containers.UserCard.viewUserButton',
+    defaultMessage: 'See more',
   },
 });
 
@@ -41,34 +49,27 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
       );
     }
 
+    const { userID, lastActive, email, lastName, firstName } = userDetails;
+
     return (
       <Card>
         <div className="flex h-full w-full p-2">
-          <div className="flex-grow flex flex-col w-full justify-between">
-            {<TimeInfoBubble timeType={TimeType.Active} time={userDetails.lastActive} />}
-            <div className="flex justify-between items-center h-12">
-              <div className="flex justify-center items-center h-8">
-                <p className="text-xl text-center font-bold">
-                  <FormattedMessage {...messages.userEmailHeader} />
-                </p>
-                <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm ml-4">
-                  {userDetails.email}
-                </p>
-              </div>
-              <div className="flex justify-center items-center h-8">
-                <p className="text-xl text-center font-bold">
-                  <FormattedMessage {...messages.userIdHeader} />
-                </p>
-                <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm ml-4">
-                  {userDetails.userID}
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-between items-center h-12">
-              <p className="font-mono text-center border boarder-grey-light rounded-sm ml-4">
-                {userDetails.medications}
-              </p>
-            </div>
+          <div className="w-1/3 py-1 flex flex-col justify-between">
+            <p className="text-xl text-center font-bold">
+              <FormattedMessage {...messages.userNameHeader} />
+            </p>
+            <p className="font-mono p-1 text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
+              {lastName}, {firstName}
+            </p>
+            <p className="text-xl text-center font-bold">
+              <FormattedMessage {...messages.userEidHeader} />
+            </p>
+            <p className="font-mono p-1 text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
+              {email}
+            </p>
+          </div>
+          <div className={`flex-grow flex flex-col justify-between`}>
+            {<TimeInfoBubble timeType={TimeType.Active} time={lastActive} />}
           </div>
         </div>
       </Card>

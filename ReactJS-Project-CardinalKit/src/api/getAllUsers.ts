@@ -13,12 +13,6 @@ export function getAllFirebaseUsers(): Promise<app.firestore.QuerySnapshot> {
       console.log('Error getting document:', error);
       return error;
     });
-  // return firebase.users().get().then(function(doc) {
-  //     return doc;
-  // }).catch(function(error) {
-  //     console.log("Error getting document:", error);
-  //     return error;
-  // });
 }
 
 export function getFirebaseUser(uid: String): Promise<app.firestore.QuerySnapshot> {
@@ -27,6 +21,22 @@ export function getFirebaseUser(uid: String): Promise<app.firestore.QuerySnapsho
     .user(uid)
     .get()
     .then(function(doc) {
+      return doc;
+    })
+    .catch(function(error) {
+      console.log('Error getting document:', error);
+      return error;
+    });
+}
+
+export function getLastActive(email: String): Promise<app.firestore.QuerySnapshot> {
+  const firebase = new Firebase();
+  return firebase
+    .user(email)
+    .collection("studies")
+    .get()
+    .then(function(doc) {
+      console.log("AQUI", email, doc);
       return doc;
     })
     .catch(function(error) {
