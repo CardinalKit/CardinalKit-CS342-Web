@@ -2,7 +2,7 @@ import app from 'firebase/app';
 import Firebase from '../components/Firebase';
 
 export function registerNewUser(user: any): Promise<app.firestore.QuerySnapshot> {
-  let actionCodeSettings = {
+  const actionCodeSettings = {
     // include email in link so it can be passed to iOS
     url: 'https://cs342-alpha-9bb64.web.app/?email=' + user.email,
     handleCodeInApp: true,
@@ -16,9 +16,10 @@ export function registerNewUser(user: any): Promise<app.firestore.QuerySnapshot>
   console.log('Registering a new user!');
   const userRef = firebase.db
     .collection(`registered-patients`)
-    .add(user)
+    .doc(user.email)
+    .set(user)
     .then((docRef: any) => {
-      console.log('Document written with ID: ', docRef.id);
+      console.log('Document written to: ', user.email);
       return docRef;
     })
     .catch((error: any) => {
