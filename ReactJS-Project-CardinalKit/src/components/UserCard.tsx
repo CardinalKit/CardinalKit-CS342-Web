@@ -35,7 +35,7 @@ interface UserCardProps {
 
 class UserCard extends React.Component<UserCardProps> {
   render() {
-    const { userID, lastActive, email, lastName, firstName } = this.props.user;
+    const { userID, lastActive, email, lastName, firstName, registrationDate } = this.props.user;
 
     return (
       <Card>
@@ -55,7 +55,8 @@ class UserCard extends React.Component<UserCardProps> {
             </p>
           </div>
           <div className={`flex-grow flex flex-col justify-between`}>
-            {<TimeInfoBubble timeType={TimeType.Active} time={lastActive} />}
+            {<TimeInfoBubble label={"Last Active"} timeType={TimeType.Active} time={lastActive} />}
+            {<TimeInfoBubble label={"Registration Time"} timeType={TimeType.Unactive} time={registrationDate} />}
             <Link to={`/user/${userID}`} className="no-underline">
               <div className="bg-blue hover:bg-blue-dark border border-blue rounded px-2 py-1 my-1 flex justify-center">
                 <span className="text-white text-center">

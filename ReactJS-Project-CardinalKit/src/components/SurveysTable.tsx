@@ -46,7 +46,8 @@ class SurveysTable extends React.Component<SurveyHeaderProps> {
     if (!userDetails || !userDetails.surveyList) {
       return (
         <Card>
-          <p className="p-5">Loading...</p>
+          <h4 className="p-4 text-center">No surveys available</h4>
+          {/* <p className="p-5">Loading...</p> */}
         </Card>
       );
     }

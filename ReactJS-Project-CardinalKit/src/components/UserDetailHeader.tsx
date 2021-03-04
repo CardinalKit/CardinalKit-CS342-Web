@@ -49,7 +49,7 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
       );
     }
 
-    const { userID, lastActive, email, lastName, firstName } = userDetails;
+    const { userID, lastActive, email, lastName, firstName, registrationDate } = userDetails;
 
     return (
       <Card>
@@ -68,8 +68,9 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
               {email}
             </p>
           </div>
-          <div className={`flex-grow flex flex-col justify-between`}>
-            {<TimeInfoBubble timeType={TimeType.Active} time={lastActive} />}
+          <div className={`flex-grow flex flex-col`}>
+            {<TimeInfoBubble label={"Last Active"} timeType={TimeType.Active} time={lastActive} />}
+            {<TimeInfoBubble label={"Registration Time"} timeType={TimeType.Unactive} time={registrationDate} />}
           </div>
         </div>
       </Card>

@@ -32,6 +32,7 @@ class RegisterForm extends React.Component {
       email: this.state.email,
       medications: this.state.medication,
       lastActive: 0,
+      registrationDate: Date.now(),
       userID: this.state.first_name + this.state.last_name,
     };
     registerNewUser(new_user);

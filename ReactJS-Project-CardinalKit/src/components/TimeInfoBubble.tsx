@@ -24,6 +24,7 @@ import { BubbleColor, InfoBubble } from '../ui/InfoBubble';
 
 export enum TimeType {
   Active = 1,
+  Unactive = 0,
 }
 
 /*const typeToMessage = (type: TimeType) => {
@@ -52,14 +53,13 @@ const HOUR_MS = 3600000;
 const GREEN_ORANGE_RED = [BubbleColor.Green, BubbleColor.Orange, BubbleColor.Red];
 
 const assignBubbleColor = (time: number, type: TimeType) => {
-  if (time == 0) {
-    return GREEN_ORANGE_RED[2];
-  }
-
   const date_time: Date = new Date(time);
   switch (type) {
     case TimeType.Active:
+      if (time == 0) {return BubbleColor.Red};
       return assignBubbleBreakpoints(date_time, GREEN_ORANGE_RED, [24 * HOUR_MS, 72 * HOUR_MS]);
+    case TimeType.Unactive:
+      return BubbleColor.Teal;
     default:
       return assignBubbleBreakpoints(date_time, GREEN_ORANGE_RED, [24 * HOUR_MS, 72 * HOUR_MS]);
   }
@@ -68,6 +68,7 @@ const assignBubbleColor = (time: number, type: TimeType) => {
 interface TimeInfoBubbleProps {
   timeType: TimeType;
   time: number;
+  label: string;
 }
 
 class TimeInfoBubble extends React.Component<TimeInfoBubbleProps> {
@@ -86,14 +87,7 @@ class TimeInfoBubble extends React.Component<TimeInfoBubbleProps> {
       >
         <div className="mr-1">
           <strong>
-            <div>Last active</div>
-            {/*<FormattedMessage
-              {...messages.relativeDate}
-              values={{
-                type: typeToMessage(props.timeType),
-                reldate: <FormattedRelativeTime value={value} unit={unit} />,
-              }}
-            />*/}
+            <div>{this.props.label}</div>
           </strong>
         </div>
         <div className="ml-1 font-mono">
