@@ -15,28 +15,12 @@ export function getAllFirebaseUsers(): Promise<app.firestore.QuerySnapshot> {
     });
 }
 
-export function getFirebaseUser(uid: String): Promise<app.firestore.QuerySnapshot> {
-  const firebase = new Firebase();
-  return firebase
-    .user(uid)
-    .get()
-    .then(function(doc) {
-      return doc;
-    })
-    .catch(function(error) {
-      console.log('Error getting document:', error);
-      return error;
-    });
-}
-
-export function getLastActive(email: String): Promise<app.firestore.QuerySnapshot> {
+export function getFirebaseUser(email: String): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
   return firebase
     .user(email)
-    .collection("studies")
     .get()
     .then(function(doc) {
-      console.log("AQUI", email, doc);
       return doc;
     })
     .catch(function(error) {
@@ -45,10 +29,43 @@ export function getLastActive(email: String): Promise<app.firestore.QuerySnapsho
     });
 }
 
-export function getSurveys(uid: String): Promise<app.firestore.QuerySnapshot> {
+export function getHeartbeatInfo(uid: String): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
   return firebase
-    .surveys(uid)
+    .user(uid)
+    .collection("studies")
+    .doc("heartbeat")
+    .get()
+    .then(function(doc) {
+      return doc;
+    })
+    .catch(function(error) {
+      console.log('Error getting document:', error);
+      return error;
+    });
+}
+
+export function getUserFromUID(uid: String): Promise<app.firestore.QuerySnapshot> {
+  const firebase = new Firebase();
+  return firebase
+    .db
+    .collection("registered-patients")
+    .where('userID', '==', uid)
+    .get()
+    .then((querySnapshot) => {
+        // return the first since it should be unique
+        return querySnapshot.docs[0];
+    })
+    .catch(function(error) {
+      console.log('Error getting document:', error);
+      return error;
+    });
+}
+
+export function getSurveys(email: String,  uid: String): Promise<app.firestore.QuerySnapshot> {
+  const firebase = new Firebase();
+  return firebase
+    .surveys(email, uid)
     .get()
     .then(function(doc) {
       return doc;

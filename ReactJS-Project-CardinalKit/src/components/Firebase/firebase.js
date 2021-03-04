@@ -114,7 +114,7 @@ class Firebase {
 
   // *** Surveys API ***
 
-  surveys = uid => this.db.collection(`studies/${config.iOSAppBundleId}/users/${uid}/surveys/`);
+  surveys = (email, uid) => this.db.collection(`registered-patients/${email}/studies/${uid}/surveys`);
 }
 
 export default Firebase;
