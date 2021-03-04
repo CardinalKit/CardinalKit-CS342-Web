@@ -15,7 +15,7 @@ import logo from '../images/cardinal_logo.svg';
 const messages = defineMessages({
   header: {
     id: 'LoginPage.header',
-    defaultMessage: 'Login with Google',
+    defaultMessage: 'Provider Login',
   },
 });
 
