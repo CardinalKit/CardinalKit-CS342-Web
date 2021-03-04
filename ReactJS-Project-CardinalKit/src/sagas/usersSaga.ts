@@ -1,6 +1,13 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { getAllFirebaseUsers, getFirebaseUser, getSurveys, getUserFromUID, getHeartbeatInfo, updateUserList } from '../api/getAllUsers';
+import {
+  getAllFirebaseUsers,
+  getFirebaseUser,
+  getHeartbeatInfo,
+  getSurveys,
+  getUserFromUID,
+  updateUserList,
+} from '../api/getAllUsers';
 
 import {
   FetchUserDetailsAction,
@@ -28,26 +35,25 @@ export function* fetchUserSummaries(action: FetchUsersAction) {
 
 export function* fetchUserDetails(action: FetchUserDetailsAction) {
   try {
-
-    var userInfo = yield call(getUserFromUID, action.userID);
+    let userInfo = yield call(getUserFromUID, action.userID);
     userInfo = userInfo.data();
-    const userEmail = userInfo["email"];
+    const userEmail = userInfo.email;
 
     const user = yield call(getFirebaseUser, userEmail);
-    var heartbeatInfo = yield call(getHeartbeatInfo, userEmail);
+    let heartbeatInfo = yield call(getHeartbeatInfo, userEmail);
     heartbeatInfo = heartbeatInfo.data();
-    var lastActive = heartbeatInfo["lastActive"];
+    let lastActive = heartbeatInfo.lastActive;
 
-    var userData = user.data();
-    userData["lastActive"] = lastActive; // over-ride with updated last active
+    let userData = user.data();
+    userData.lastActive = lastActive; // over-ride with updated last active
 
-    const surveys = yield call(getSurveys, userEmail, heartbeatInfo["userID"]);
+    const surveys = yield call(getSurveys, userEmail, heartbeatInfo.userID);
 
     const surveyList = surveys.docs.map((i: app.firestore.QueryDocumentSnapshot) => i.data());
 
     yield put(fetchUserDetailsSuccess(userData, surveyList));
   } catch (err) {
-    console.log("error fetching users", err);
+    console.log('error fetching users', err);
     yield put(fetchUserDetailsFailure(err));
   }
 }

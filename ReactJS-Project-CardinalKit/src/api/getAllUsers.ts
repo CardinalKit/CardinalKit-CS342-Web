@@ -15,17 +15,16 @@ export function getAllFirebaseUsers(): Promise<app.firestore.QuerySnapshot> {
     });
 }
 
-export function updateUserList(userList: any): Promise<Array<any>> {
-
-  var out = userList.map((user: any) => {
-    return getHeartbeatInfo(user["email"]).then((heartbeatInfo) => {
-      var heartbeatInfoData = heartbeatInfo.data();
-      if (heartbeatInfoData){
-        var lastActive = heartbeatInfoData["lastActive"];
-        user["lastActive"] = lastActive;
+export function updateUserList(userList: any): Promise<any[]> {
+  let out = userList.map((user: any) => {
+    return getHeartbeatInfo(user.email).then(heartbeatInfo => {
+      let heartbeatInfoData = heartbeatInfo.data();
+      if (heartbeatInfoData) {
+        let lastActive = heartbeatInfoData.lastActive;
+        user.lastActive = lastActive;
         return user;
       }
-        return user;
+      return user;
     });
   });
 
@@ -52,8 +51,8 @@ export function getHeartbeatInfo(uid: String): Promise<app.firestore.DocumentSna
   const firebase = new Firebase();
   return firebase
     .user(uid)
-    .collection("studies")
-    .doc("heartbeat")
+    .collection('studies')
+    .doc('heartbeat')
     .get()
     .then(function(doc) {
       return doc;
@@ -66,14 +65,13 @@ export function getHeartbeatInfo(uid: String): Promise<app.firestore.DocumentSna
 
 export function getUserFromUID(uid: String): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
-  return firebase
-    .db
-    .collection("registered-patients")
+  return firebase.db
+    .collection('registered-patients')
     .where('userID', '==', uid)
     .get()
-    .then((querySnapshot) => {
-        // return the first since it should be unique
-        return querySnapshot.docs[0];
+    .then(querySnapshot => {
+      // return the first since it should be unique
+      return querySnapshot.docs[0];
     })
     .catch(function(error) {
       console.log('Error getting document:', error);
@@ -81,7 +79,7 @@ export function getUserFromUID(uid: String): Promise<app.firestore.QuerySnapshot
     });
 }
 
-export function getSurveys(email: String,  uid: String): Promise<app.firestore.QuerySnapshot> {
+export function getSurveys(email: String, uid: String): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
   return firebase
     .surveys(email, uid)
