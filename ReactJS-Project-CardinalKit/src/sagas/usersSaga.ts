@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { getAllFirebaseUsers, getFirebaseUser, getSurveys, getUserFromUID, getHeartbeatInfo } from '../api/getAllUsers';
+import { getAllFirebaseUsers, getFirebaseUser, getSurveys, getUserFromUID, getHeartbeatInfo, updateUserList } from '../api/getAllUsers';
 
 import {
   FetchUserDetailsAction,
@@ -18,8 +18,9 @@ export function* fetchUserSummaries(action: FetchUsersAction) {
   try {
     const users = yield call(getAllFirebaseUsers);
     const userList = users.docs.map((i: app.firestore.QueryDocumentSnapshot) => i.data());
+    const userListv2 = yield call(updateUserList, userList); // update with last active
 
-    yield put(fetchUsersSuccess(userList));
+    yield put(fetchUsersSuccess(userListv2));
   } catch (err) {
     yield put(fetchUsersFailure(err));
   }

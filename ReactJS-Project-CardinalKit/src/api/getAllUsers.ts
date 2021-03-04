@@ -15,6 +15,25 @@ export function getAllFirebaseUsers(): Promise<app.firestore.QuerySnapshot> {
     });
 }
 
+export function updateUserList(userList: any): Promise<Array<any>> {
+
+  var out = userList.map((user: any) => {
+    return getHeartbeatInfo(user["email"]).then((heartbeatInfo) => {
+      var heartbeatInfoData = heartbeatInfo.data();
+      if (heartbeatInfoData){
+        var lastActive = heartbeatInfoData["lastActive"];
+        user["lastActive"] = lastActive;
+        return user;
+      }
+        return user;
+    });
+  });
+
+  // we need to make this function return a promise (not an array of promises)
+  // so, we construct a Promise.all around it
+  return Promise.all(out);
+}
+
 export function getFirebaseUser(email: String): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
   return firebase
@@ -29,7 +48,7 @@ export function getFirebaseUser(email: String): Promise<app.firestore.QuerySnaps
     });
 }
 
-export function getHeartbeatInfo(uid: String): Promise<app.firestore.QuerySnapshot> {
+export function getHeartbeatInfo(uid: String): Promise<app.firestore.DocumentSnapshot> {
   const firebase = new Firebase();
   return firebase
     .user(uid)
