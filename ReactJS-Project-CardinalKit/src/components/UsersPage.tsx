@@ -9,7 +9,7 @@ import { Card } from '../ui/Card';
 const messages = defineMessages({
   header: {
     id: 'app.containers.UserPage.header',
-    defaultMessage: 'Users',
+    defaultMessage: 'Patient List',
   },
   addUserButton: {
     id: 'app.UserList.addUserButton',

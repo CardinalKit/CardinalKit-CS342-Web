@@ -63,7 +63,7 @@ export function getHeartbeatInfo(uid: String): Promise<app.firestore.DocumentSna
     });
 }
 
-export function getUserFromUID(uid: String): Promise<app.firestore.QuerySnapshot> {
+export function getUserFromUID(uid: String): Promise<app.firestore.QueryDocumentSnapshot> {
   const firebase = new Firebase();
   return firebase.db
     .collection('registered-patients')
@@ -77,6 +77,18 @@ export function getUserFromUID(uid: String): Promise<app.firestore.QuerySnapshot
       console.log('Error getting document:', error);
       return error;
     });
+}
+
+export function deleteFirebaseUser(userID: String) {
+  getUserFromUID(userID).then((docSnapshot) => {
+    docSnapshot.ref
+    .delete()
+    .then(() => {
+      console.log("Document successfully deleted!");
+      }).catch((error: any) => {
+      console.error("Error removing document: ", error);
+    });
+  });
 }
 
 export function getSurveys(email: String, uid: String): Promise<app.firestore.QuerySnapshot> {
