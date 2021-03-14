@@ -27,7 +27,7 @@ const messages = defineMessages({
   },
 });
 
-class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
+class RegisterPage extends React.Component<UserDetailHeaderProps> {
   componentDidMount() {
     this.props.loadUserDetails();
   }
@@ -88,4 +88,4 @@ export default connect<
 >(
   mapStateToProps,
   mapDispatchToProps
-)(UserDetailHeader);
+)(RegisterPage);

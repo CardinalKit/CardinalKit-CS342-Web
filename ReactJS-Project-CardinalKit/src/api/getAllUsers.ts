@@ -79,6 +79,16 @@ export function getUserFromUID(uid: String): Promise<app.firestore.QueryDocument
     });
 }
 
+export function getMedicationsFromUID(uid: String): Promise<app.firestore.QuerySnapshot>{
+  const firebase = new Firebase();
+  return getUserFromUID(uid).then((userDoc) => {
+    return userDoc.ref.collection('medications').get().then((querySnapshot) => {
+      console.log(querySnapshot);
+      return querySnapshot;
+    })
+  });
+}
+
 export function deleteFirebaseUser(userID: String) {
   getUserFromUID(userID).then((docSnapshot) => {
     docSnapshot.ref

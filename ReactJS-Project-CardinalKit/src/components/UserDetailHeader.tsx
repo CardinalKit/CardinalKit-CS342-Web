@@ -14,6 +14,8 @@ import { Card } from '../ui/Card';
 
 import { TimeInfoBubble, TimeType } from './TimeInfoBubble';
 
+import { Link } from 'react-router-dom';
+
 const messages = defineMessages({
   userNameHeader: {
     id: 'app.containers.UserCard.name',
@@ -27,9 +29,9 @@ const messages = defineMessages({
     id: 'app.containers.UserCard.eid',
     defaultMessage: 'Email',
   },
-  viewUserButton: {
-    id: 'app.containers.UserCard.viewUserButton',
-    defaultMessage: 'See more',
+  editMedicationsButton: {
+    id: 'app.containers.UserCard.editMedicationsButton',
+    defaultMessage: 'Edit Medications',
   },
 });
 
@@ -71,6 +73,13 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
           <div className={`flex-grow flex flex-col`}>
             {<TimeInfoBubble label={"Last Active"} timeType={TimeType.Active} time={lastActive} />}
             {<TimeInfoBubble label={"Registration Time"} timeType={TimeType.Unactive} time={registrationDate} />}
+            <Link to={`/user/${userID}/medication`} className="no-underline">
+              <div className="bg-blue hover:bg-blue-dark border border-blue rounded px-2 py-1 my-1 flex justify-center">
+                <span className="text-white text-center">
+                  <FormattedMessage {...messages.editMedicationsButton} />
+                </span>
+              </div>
+            </Link>
           </div>
         </div>
       </Card>
