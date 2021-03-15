@@ -9,7 +9,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import MedicationPage from './MedicationPage';
 
-import { BsUnlock, BsLock } from 'react-icons/bs';
+import { BsUnlockFill, BsLockFill } from 'react-icons/bs';
 
 const messages = defineMessages({
   medicineName: {
@@ -94,9 +94,9 @@ class MedicationCard extends React.Component {
               onChange={this.handleChange}
             />
             <div style={{"flexGrow": 1}} className="w-full"></div>
-            <div onClick={() => this.toggleEdit()} className="bg-blue hover:bg-blue-dark border border-blue rounded mx-2 px-2 py-1 my-1 flex justify-center">
-              <span className="text-white text-center">
-                {(!this.state.editing) ? <BsLock/> : <BsUnlock/>}
+            <div onClick={() => this.toggleEdit()} className="bg-grey hover:bg-grey-dark border border-grey rounded mx-2 px-2 py-1 my-1 flex justify-center">
+              <span className="text-black text-center">
+                {(!this.state.editing) ? <BsLockFill/> : <BsUnlockFill/>}
               </span>
             </div>
             <div onClick={() => this.deleteRow()} className="bg-red hover:bg-red-dark border border-red rounded mx-1 px-2 py-1 my-1 flex justify-center"
