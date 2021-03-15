@@ -43,6 +43,9 @@ class MedicationForm extends React.Component {
 
   addRow = () => {
     var newState = this.state.medications;
+    if (typeof(newState) === 'string'){
+      newState = {}
+    }
     newState[""] = ""
     this.setState({medications: newState});
   }
