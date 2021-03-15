@@ -5,7 +5,11 @@ export interface UserDetails {
   eID: string;
   userID: string;
   email: string;
+  firstName: string;
+  lastName: string;
   createdAt?: Date;
   surveyList?: Survey[];
-  lastActive: Date;
+  lastActive: number;
+  registrationDate: number;
+  medications: string;
 }

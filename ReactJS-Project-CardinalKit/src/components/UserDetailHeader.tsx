@@ -14,14 +14,24 @@ import { Card } from '../ui/Card';
 
 import { TimeInfoBubble, TimeType } from './TimeInfoBubble';
 
+import { Link } from 'react-router-dom';
+
 const messages = defineMessages({
-  userEmailHeader: {
-    id: 'app.containers.UserDetailHeader.userid',
-    defaultMessage: 'Email:',
+  userNameHeader: {
+    id: 'app.containers.UserCard.name',
+    defaultMessage: 'Patient Name',
   },
   userIdHeader: {
-    id: 'app.containers.UserDetailHeader.id',
-    defaultMessage: 'User ID:',
+    id: 'app.containers.UserCard.userid',
+    defaultMessage: 'ID',
+  },
+  userEidHeader: {
+    id: 'app.containers.UserCard.eid',
+    defaultMessage: 'Email',
+  },
+  editMedicationsButton: {
+    id: 'app.containers.UserCard.editMedicationsButton',
+    defaultMessage: 'Edit Medications',
   },
 });
 
@@ -41,31 +51,35 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
       );
     }
 
-    const lastActiveTake = new Date(userDetails.lastActive);
+    const { userID, lastActive, email, lastName, firstName, registrationDate } = userDetails;
 
     return (
       <Card>
         <div className="flex h-full w-full p-2">
-          <div className="flex-grow flex flex-col justify-between">
-            <div className="flex justify-between items-center h-12">
-              <div className="flex justify-center items-center h-8 px-4">
-                <p className="text-xl text-center font-bold">
-                  <FormattedMessage {...messages.userEmailHeader} />
-                </p>
-                <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm px-4 ml-4">
-                  {userDetails.email}
-                </p>
+          <div className="w-1/3 py-1 flex flex-col justify-between">
+            <p className="text-xl text-center font-bold">
+              <FormattedMessage {...messages.userNameHeader} />
+            </p>
+            <p className="font-mono p-1 text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
+              {lastName}, {firstName}
+            </p>
+            <p className="text-xl text-center font-bold">
+              <FormattedMessage {...messages.userEidHeader} />
+            </p>
+            <p className="font-mono p-1 text-center border boarder-grey-light bg-grey-lighter rounded-sm mx-4">
+              {email}
+            </p>
+          </div>
+          <div className={`flex-grow flex flex-col`}>
+            {<TimeInfoBubble label={"Last Active"} timeType={TimeType.Active} time={lastActive} />}
+            {<TimeInfoBubble label={"Registration Time"} timeType={TimeType.Unactive} time={registrationDate} />}
+            <Link to={`/user/${userID}/medication`} className="no-underline">
+              <div className="bg-blue hover:bg-blue-dark border border-blue rounded px-2 py-1 my-1 flex justify-center">
+                <span className="text-white text-center">
+                  <FormattedMessage {...messages.editMedicationsButton} />
+                </span>
               </div>
-              <div className="flex justify-center items-center h-8 px-4">
-                <p className="text-xl text-center font-bold">
-                  <FormattedMessage {...messages.userIdHeader} />
-                </p>
-                <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm px-4 ml-4">
-                  {userDetails.userID}
-                </p>
-              </div>
-            </div>
-            {lastActiveTake && <TimeInfoBubble timeType={TimeType.Active} time={lastActiveTake} />}
+            </Link>
           </div>
         </div>
       </Card>

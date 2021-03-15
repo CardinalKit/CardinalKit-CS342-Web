@@ -3,15 +3,25 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 const config = {
-  apiKey: process.env.REACT_APP_API_KEY || 'AIzaSyCVzML6v4C16HNjUZN_xnEX5RWJmDq3YUU',
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN || 'cs342-master-sample.firebaseapp.com',
-  databaseURL: process.env.REACT_APP_DATABASE_URL || 'https://cs342-master-sample.firebaseio.com',
-  projectId: process.env.REACT_APP_PROJECT_ID || 'cs342-master-sample',
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET || 'cs342-master-sample.appspot.com',
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID || '267563013930',
-  appId: process.env.REACT_APP_ID || '1:267563013930:web:99eeeff653b0f07accb053',
-  iOSAppBundleId: process.env.IOS_APP_ID || 'edu.stanford.cardinalkit', // as setup on your iOS project
+  apiKey: 'AIzaSyBYlt95-E4qI7yOdkChGIdq1tkjVC6I68U',
+  authDomain: 'cs342-alpha-9bb64.firebaseapp.com',
+  projectId: 'cs342-alpha-9bb64',
+  storageBucket: 'cs342-alpha-9bb64.appspot.com',
+  messagingSenderId: '47235957743',
+  appId: '1:47235957743:web:30ad97b3d66cfb239f2c1a',
+  iOSAppBundleId: 'edu.stanford.cs342-alpha-cardiology',
 };
+
+// const config = {
+//   apiKey: process.env.REACT_APP_API_KEY || 'AIzaSyCVzML6v4C16HNjUZN_xnEX5RWJmDq3YUU',
+//   authDomain: process.env.REACT_APP_AUTH_DOMAIN || 'cs342-master-sample.firebaseapp.com',
+//   databaseURL: process.env.REACT_APP_DATABASE_URL || 'https://cs342-master-sample.firebaseio.com',
+//   projectId: process.env.REACT_APP_PROJECT_ID || 'cs342-master-sample',
+//   storageBucket: process.env.REACT_APP_STORAGE_BUCKET || 'cs342-master-sample.appspot.com',
+//   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID || '267563013930',
+//   appId: process.env.REACT_APP_ID || '1:267563013930:web:99eeeff653b0f07accb053',
+//   iOSAppBundleId: process.env.IOS_APP_ID || 'edu.stanford.cardinalkit', // as setup on your iOS project
+// };
 
 class Firebase {
   constructor() {
@@ -94,13 +104,17 @@ class Firebase {
 
   // *** User API ***
 
-  user = uid => this.db.collection(`studies/${config.iOSAppBundleId}/users`).doc(`${uid}`);
+  // user = uid => this.db.collection(`studies/${config.iOSAppBundleId}/users`).doc(`${uid}`);
 
-  users = () => this.db.collection(`studies/${config.iOSAppBundleId}/users/`);
+  // users = () => this.db.collection(`studies/${config.iOSAppBundleId}/users/`);
+
+  user = uid => this.db.collection(`registered-patients`).doc(`${uid}`);
+
+  users = () => this.db.collection(`registered-patients`);
 
   // *** Surveys API ***
 
-  surveys = uid => this.db.collection(`studies/${config.iOSAppBundleId}/users/${uid}/surveys/`);
+  surveys = (email, uid) => this.db.collection(`registered-patients/${email}/studies/${uid}/surveys`);
 }
 
 export default Firebase;

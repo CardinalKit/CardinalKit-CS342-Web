@@ -1,14 +1,21 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { getAllFirebaseUsers, getFirebaseUser, getSurveys } from '../api/getAllUsers';
+import {
+  getAllFirebaseUsers,
+  getFirebaseUser,
+  getHeartbeatInfo,
+  getSurveys,
+  getUserFromUID,
+  updateUserList,
+} from '../api/getAllUsers';
 
 import {
-  FetchUsersAction,
   FetchUserDetailsAction,
+  fetchUserDetailsFailure,
+  fetchUserDetailsSuccess,
+  FetchUsersAction,
   fetchUsersFailure,
   fetchUsersSuccess,
-  fetchUserDetailsSuccess,
-  fetchUserDetailsFailure
 } from '../actions/usersActions';
 import { UsersActionType } from '../constants/usersConstants';
 
@@ -17,30 +24,36 @@ import app from 'firebase/app';
 export function* fetchUserSummaries(action: FetchUsersAction) {
   try {
     const users = yield call(getAllFirebaseUsers);
-
-    /*users.docs.forEach(function(doc: app.firestore.QueryDocumentSnapshot) {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-    });*/
-
     const userList = users.docs.map((i: app.firestore.QueryDocumentSnapshot) => i.data());
+    const userListv2 = yield call(updateUserList, userList); // update with last active
 
-    yield put(fetchUsersSuccess(userList));
+    yield put(fetchUsersSuccess(userListv2));
   } catch (err) {
     yield put(fetchUsersFailure(err));
   }
 }
 
 export function* fetchUserDetails(action: FetchUserDetailsAction) {
-
   try {
-    const user = yield call(getFirebaseUser, action.userID);
+    let userInfo = yield call(getUserFromUID, action.userID);
+    userInfo = userInfo.data();
+    const userEmail = userInfo.email;
 
-    const surveys = yield call(getSurveys, action.userID);
+    const user = yield call(getFirebaseUser, userEmail);
+    let heartbeatInfo = yield call(getHeartbeatInfo, userEmail);
+    heartbeatInfo = heartbeatInfo.data();
+    let lastActive = heartbeatInfo.lastActive;
+
+    let userData = user.data();
+    userData.lastActive = lastActive; // over-ride with updated last active
+
+    const surveys = yield call(getSurveys, userEmail, heartbeatInfo.userID);
+
     const surveyList = surveys.docs.map((i: app.firestore.QueryDocumentSnapshot) => i.data());
 
-    yield put(fetchUserDetailsSuccess(user.data(), surveyList));
+    yield put(fetchUserDetailsSuccess(userData, surveyList));
   } catch (err) {
+    console.log('error fetching users', err);
     yield put(fetchUserDetailsFailure(err));
   }
 }

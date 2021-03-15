@@ -46,6 +46,10 @@ const messages = defineMessages({
     id: 'app.UserList.eid',
     defaultMessage: 'Email',
   },
+  lastName: {
+    id: 'app.UserList.lastname',
+    defaultMessage: 'Name',
+  },
   eidTypeFormat: {
     id: 'app.UserList.eidTypeFormat',
     defaultMessage: '{eidType}',
@@ -123,34 +127,6 @@ class UserList extends React.Component<UserListProps> {
               </button>
             </div>
           </div>
-          {/*<div className="px-4 my-4 flex items-center justify-center">
-            <p className="font-semibold text-sm p-2">
-              <FormattedMessage {...messages.eidPrefixes} />
-            </p>
-            <div className="inline-flex h-8">
-              {eidTypes.map((eidType: string, index: number) => (
-                <button
-                  key={`eidToggle-${eidType}`}
-                  className={`${
-                    !hiddenEIDTypes.includes(eidType) ? 'bg-grey' : 'bg-grey-light hover:bg-grey'
-                  } px-3 ${index === 0 && 'rounded-l'} ${index === eidTypes.length - 1 &&
-                    'rounded-r'} flex items-center justify-center`}
-                  onClick={() => {
-                    this.props.toggleHideEIDType(eidType);
-                  }}
-                >
-                  <span className="text-sm font-bold">
-                    <FormattedMessage
-                      {...messages.eidTypeFormat}
-                      values={{
-                        eidType,
-                      }}
-                    />
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>*/}
         </Card>
         <div>
           {userList.map(user => {

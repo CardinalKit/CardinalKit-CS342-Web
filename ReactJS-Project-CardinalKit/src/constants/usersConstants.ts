@@ -3,6 +3,8 @@ export enum UsersSortField {
   LastActive = 'LAST_ACTIVE',
   UserID = 'USER_ID',
   UserEID = 'USER_EID',
+  UserFirstName = 'USER_FIRST_NAME',
+  UserLastName = 'USER_LAST_NAME',
 }
 
 export enum UsersSortOrder {

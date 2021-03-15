@@ -15,7 +15,7 @@ import logo from '../images/cardinal_logo.svg';
 const messages = defineMessages({
   header: {
     id: 'LoginPage.header',
-    defaultMessage: 'Login with Google',
+    defaultMessage: 'Provider Login',
   },
 });
 
@@ -43,7 +43,9 @@ export class LoginPage extends React.Component {
               <img src={logo} alt="VascTrac" className="h-24" />
             </div>
             <div className="mb-4">
-              {error && <p className="text-red text-xs italic">Unable to login. Please make sure you are using a valid @stanford.edu account.</p>}
+              {error && <p className="text-red text-xs italic">
+                Unable to login. This portal is only for registered providers.
+              </p>}
             </div>
             <Button
               className="w-full"
