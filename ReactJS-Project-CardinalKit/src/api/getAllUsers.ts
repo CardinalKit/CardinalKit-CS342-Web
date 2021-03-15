@@ -16,11 +16,11 @@ export function getAllFirebaseUsers(): Promise<app.firestore.QuerySnapshot> {
 }
 
 export function updateUserList(userList: any): Promise<any[]> {
-  let out = userList.map((user: any) => {
+  const out = userList.map((user: any) => {
     return getHeartbeatInfo(user.email).then(heartbeatInfo => {
-      let heartbeatInfoData = heartbeatInfo.data();
+      const heartbeatInfoData = heartbeatInfo.data();
       if (heartbeatInfoData) {
-        let lastActive = heartbeatInfoData.lastActive;
+        const lastActive = heartbeatInfoData.lastActive;
         user.lastActive = lastActive;
         return user;
       }
@@ -63,7 +63,7 @@ export function getHeartbeatInfo(uid: String): Promise<app.firestore.DocumentSna
     });
 }
 
-export function getUserFromUID(uid: String): Promise<app.firestore.QueryDocumentSnapshot> {
+export function getUserFromUID(uid: string): Promise<app.firestore.QueryDocumentSnapshot> {
   const firebase = new Firebase();
   return firebase.db
     .collection('registered-patients')
@@ -79,25 +79,43 @@ export function getUserFromUID(uid: String): Promise<app.firestore.QueryDocument
     });
 }
 
-export function getMedicationsFromUID(uid: String): Promise<app.firestore.QuerySnapshot>{
+// export function getMedicationsFromUID(uid: String): Promise<app.firestore.QuerySnapshot>{
+//   const firebase = new Firebase();
+//   return getUserFromUID(uid).then((userDoc) => {
+//     return userDoc.ref.collection('medications').get().then((querySnapshot) => {
+//       console.log(querySnapshot);
+//       return querySnapshot;
+//     })
+//   });
+// }
+
+export function saveNewMedications(userEmail: string, newMedications: any) {
   const firebase = new Firebase();
-  return getUserFromUID(uid).then((userDoc) => {
-    return userDoc.ref.collection('medications').get().then((querySnapshot) => {
-      console.log(querySnapshot);
-      return querySnapshot;
+  firebase.db
+    .collection('registered-patients')
+    .doc(userEmail)
+    .update({
+      medications: newMedications,
     })
-  });
+    .then(() => {
+      alert('Medications saved.');
+    })
+    .catch(error => {
+      // The document probably doesn't exist.
+      alert('ERROR: Medications were not saved. ' + error);
+    });
 }
 
-export function deleteFirebaseUser(userID: String) {
-  getUserFromUID(userID).then((docSnapshot) => {
+export function deleteFirebaseUser(userID: string) {
+  getUserFromUID(userID).then(docSnapshot => {
     docSnapshot.ref
-    .delete()
-    .then(() => {
-      console.log("Document successfully deleted!");
-      }).catch((error: any) => {
-      console.error("Error removing document: ", error);
-    });
+      .delete()
+      .then(() => {
+        console.log('Document successfully deleted!');
+      })
+      .catch((error: any) => {
+        console.error('Error removing document: ', error);
+      });
   });
 }
 
