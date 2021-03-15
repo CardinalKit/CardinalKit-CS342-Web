@@ -11,7 +11,7 @@ class RegisterForm extends React.Component {
       first_name: '',
       last_name: '',
       email: '',
-      medications: [],
+      medication: '',
     };
 
     this.state = this.initialState;
@@ -80,16 +80,6 @@ class RegisterForm extends React.Component {
                   onChange={this.handleChange}
                 />
               </div>
-              {/* <div className="flex flex-col mb-4 mr-4">
-                <label className="mb-2 font-bold text-lg text-grey-darkest">Medication:</label>
-                <input
-                  className="border py-2 px-3 text-grey-darkest"
-                  type="text"
-                  name="medication"
-                  value={this.state.medication}
-                  onChange={this.handleChange}
-                />
-              </div> */}
               <button type="submit" value="Register">
                 <div className="bg-green hover:bg-green-dark border border-green rounded px-2 py-2 my-1 flex flex-wrap justify-center">
                   <span className="text-white text-center">Register</span>
