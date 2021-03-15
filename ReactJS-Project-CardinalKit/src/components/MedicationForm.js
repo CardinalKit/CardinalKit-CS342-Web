@@ -78,10 +78,13 @@ class MedicationForm extends React.Component {
         <div className="flex h-full w-full p-2">
           <div className="flex-grow flex flex-col justify-between">
             <div className="w-full mt-4 mb-4 ml-4">
-              <h1>Medications for {this.state.firstName + " " + this.state.lastName}</h1>
-              <h4>Email: {this.state.email}</h4>
-              <br />
+              <h2>Medications for <span>{this.state.lastName + ", " + this.state.firstName}</span></h2>
+              <h4 className="px-2 py-2">Email: {this.state.email}</h4>
+              <h4 className="px-2">UserID: {this.props.userID}</h4>
               <div>
+              {(Object.entries(medications).length === 0) &&
+               <p className="mx-10 my-10">No medications registered.</p>
+              }
               {Object.keys(medications).sort().map(function(medication) {
                   const interval = medications[medication];
                   return <MedicationCard parentCallback={handleCallback}
