@@ -2,19 +2,6 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-// const config = {
-//   apiKey: 'AIzaSyDY8GTuNp9acKwYeIFWyEw_xG-ssnoL1pk',
-//   authDomain: 'som-rit-phi-mhealth2-qa.firebaseapp.com',
-//   projectId: 'som-rit-phi-mhealth2-qa',
-//   databaseURL: 'https://som-rit-phi-mhealth2-qa.firebaseio.com',
-//   storageBucket: 'som-rit-phi-mhealth2-qa.appspot.com',
-//   messagingSenderId: '747429109194',
-//   appId: '1:747429109194:web:c31ad046d69aafe8524333',
-//   measurementId: 'G-PM8MJ8VJS5',
-//   hosting: 'https://careit-qa2.firebaseapp.com',
-//   iOSAppBundleId: 'med.stanford.mh-sample',
-// };
-
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -25,7 +12,7 @@ const config = {
   appId: process.env.REACT_APP_ID,
   measurementId: process.env.REACT_APP_MID,
   hosting: process.env.REACT_APP_HOSTING,
-  iOSAppBundleId: process.env.IOS_APP_ID
+  iOSAppBundleId: process.env.REACT_APP_IOS_APP_ID,
 };
 
 class Firebase {
