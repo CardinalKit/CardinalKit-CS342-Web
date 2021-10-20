@@ -11,7 +11,6 @@ import { UserDetails } from '../api/user';
 import { UsersSortField, UsersSortOrder } from '../constants/usersConstants';
 import { Store } from '../reducers/rootReducer';
 import {
-  selectEIDTypes,
   selectHiddenEIDTypes,
   selectUsers,
   selectUsersSortField,
@@ -62,7 +61,6 @@ const messages = defineMessages({
 });
 
 class UserList extends React.Component<UserListProps> {
-
   componentDidMount() {
     const { loadUsers } = this.props;
     loadUsers();
@@ -77,55 +75,55 @@ class UserList extends React.Component<UserListProps> {
   render() {
     const { userList, sortField, sortOrder } = this.props;
     return (
-      <div>
-        <Card className="flex flex-wrap justify-center">
-          <div className="px-4 my-4 flex items-center justify-center">
-            <p className="font-semibold text-sm p-2">
-              <FormattedMessage {...messages.sortBy} />
-            </p>
-            <div className="inline-flex h-8">
-              <button
-                className={`${
-                  sortField === UsersSortField.UserEID ? 'bg-grey' : 'bg-grey-light hover:bg-grey'
-                }  text-sm text-center font-bold py-2 px-3 rounded-r`}
-                onClick={this.selectUserEID}
-              >
-                <FormattedMessage {...messages.eid} />
-              </button>
+        <div>
+          <Card className="flex flex-wrap justify-center">
+            <div className="px-4 my-4 flex items-center justify-center">
+              <p className="font-semibold text-sm p-2">
+                <FormattedMessage {...messages.sortBy} />
+              </p>
+              <div className="inline-flex h-8">
+                <button
+                    className={`${
+                        sortField === UsersSortField.UserEID ? 'bg-grey' : 'bg-grey-light hover:bg-grey'
+                    }  text-sm text-center font-bold py-2 px-3 rounded-r`}
+                    onClick={this.selectUserEID}
+                >
+                  <FormattedMessage {...messages.eid} />
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="px-4 my-4 flex items-center justify-center">
-            <p className="font-semibold text-sm p-2">
-              <FormattedMessage {...messages.sortOrder} />
-            </p>
-            <div className="inline-flex h-8">
-              <button
-                className={`${
-                  sortOrder === UsersSortOrder.Descending
-                    ? 'bg-grey'
-                    : 'bg-grey-light hover:bg-grey'
-                } px-3 rounded-l flex items-center justify-center`}
-                onClick={this.selectDescending}
-              >
-                <ArrowDown className="mr-1" color="black" />
-                <span className="ml-1 text-sm font-bold">
+            <div className="px-4 my-4 flex items-center justify-center">
+              <p className="font-semibold text-sm p-2">
+                <FormattedMessage {...messages.sortOrder} />
+              </p>
+              <div className="inline-flex h-8">
+                <button
+                    className={`${
+                        sortOrder === UsersSortOrder.Descending
+                            ? 'bg-grey'
+                            : 'bg-grey-light hover:bg-grey'
+                    } px-3 rounded-l flex items-center justify-center`}
+                    onClick={this.selectDescending}
+                >
+                  <ArrowDown className="mr-1" color="black" />
+                  <span className="ml-1 text-sm font-bold">
                   <FormattedMessage {...messages.downArrowText} />
                 </span>
-              </button>
-              <button
-                className={`${
-                  sortOrder === UsersSortOrder.Ascending ? 'bg-grey' : 'bg-grey-light hover:bg-grey'
-                } px-3 rounded-r flex items-center justify-center`}
-                onClick={this.selectAscending}
-              >
-                <ArrowUp className="mr-1" color="black" />
-                <span className="ml-1 text-sm font-bold">
+                </button>
+                <button
+                    className={`${
+                        sortOrder === UsersSortOrder.Ascending ? 'bg-grey' : 'bg-grey-light hover:bg-grey'
+                    } px-3 rounded-r flex items-center justify-center`}
+                    onClick={this.selectAscending}
+                >
+                  <ArrowUp className="mr-1" color="black" />
+                  <span className="ml-1 text-sm font-bold">
                   <FormattedMessage {...messages.upArrowText} />
                 </span>
-              </button>
+                </button>
+              </div>
             </div>
-          </div>
-          {/*<div className="px-4 my-4 flex items-center justify-center">
+            {/*<div className="px-4 my-4 flex items-center justify-center">
             <p className="font-semibold text-sm p-2">
               <FormattedMessage {...messages.eidPrefixes} />
             </p>
@@ -153,13 +151,13 @@ class UserList extends React.Component<UserListProps> {
               ))}
             </div>
           </div>*/}
-        </Card>
-        <div>
-          {userList.map(user => {
-            return <UserCard key={user.eID} user={user} />;
-          })}
+          </Card>
+          <div>
+            {userList.map(user => {
+              return <UserCard key={user.userID} user={user} />;
+            })}
+          </div>
         </div>
-      </div>
     );
   }
 }
@@ -171,7 +169,6 @@ interface UserListStateProps {
   sortField: UsersSortField;
   // Defined in terms of hidden, rather than shown to simplify reducer
   hiddenEIDTypes: string[];
-  eidTypes: string[];
 }
 
 interface UserListDispatchProps {
@@ -190,7 +187,6 @@ function mapStateToProps(state: Store): UserListStateProps {
     sortOrder: selectUsersSortOrder(state),
     sortField: selectUsersSortField(state),
     hiddenEIDTypes: selectHiddenEIDTypes(state),
-    eidTypes: selectEIDTypes(state),
   };
 }
 
@@ -209,6 +205,6 @@ function mapDispatchToProps(dispatch: Dispatch) {
 }
 
 export default connect<UserListStateProps, UserListDispatchProps, {}, Store>(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(UserList);

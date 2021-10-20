@@ -40,7 +40,9 @@ const selectRawUserList = createSelector(
 export const selectFilteredUserList = createSelector(
   [selectRawUserList, selectHiddenEIDTypes],
   (users: UserDetails[], hiddenEIDTypes: string[]) =>
-    users.filter(user => !hiddenEIDTypes.includes(user.eID.substring(0, 3)))
+      users.filter(user => !hiddenEIDTypes.includes(user.eID))
+
+    // users.filter(user => !hiddenEIDTypes.includes(user.eID.substring(0, 3)))
 );
 
 export const selectUserDetails = (state: Store, props: { userID: string }) => {
