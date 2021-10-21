@@ -10,9 +10,9 @@ const config = {
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_ID,
-  measurementId: process.env.REACT_APP_MID,
   hosting: process.env.REACT_APP_HOSTING,
   iOSAppBundleId: process.env.REACT_APP_IOS_APP_ID,
+  usersCollection: process.env.REACT_APP_USERS_COLLECTION,
 };
 
 class Firebase {
@@ -96,23 +96,29 @@ class Firebase {
 
   // *** User API ***
 
-  user = uid => this.db.collection(`${config.iOSAppBundleId}/study/users`).doc(`${uid}`);
+  user = uid =>
+    this.db.collection(`${config.iOSAppBundleId}/study/${config.usersCollection}`).doc(`${uid}`);
 
-  users = () => this.db.collection(`${config.iOSAppBundleId}/study/users/`);
+  users = () => this.db.collection(`${config.iOSAppBundleId}/study/${config.usersCollection}/`);
 
   // *** Surveys API ***
 
-  surveys = uid => this.db.collection(`${config.iOSAppBundleId}/study/users/${uid}/mhs-surveys/`);
+  surveys = uid =>
+    this.db.collection(
+      `${config.iOSAppBundleId}/study/${config.usersCollection}/${uid}/mhs-surveys/`
+    );
 
   survey = (uid, surveyId) =>
-    this.db.collection(`${config.iOSAppBundleId}/study/users/${uid}/mhs-urveys/${surveyId}`);
+    this.db.collection(
+      `${config.iOSAppBundleId}/study/${config.usersCollection}/${uid}/mhs-urveys/${surveyId}`
+    );
   // *** Providers API ***
 
   provider = uid => this.db.collection(`${config.iOSAppBundleId}/study/providers/`).doc(`${uid}`);
 
   providers = () => this.db.collection(`${config.iOSAppBundleId}/study/providers/`);
 
-  video = (uid, surveyId, videoId) => {
+  video = (uid, surveyId, videoId) =>
     // const filePath = `${config.iOSAppBundleId}/study/careit-users/${uid}/careit-videos/${surveyId}/${videoId}`;
     // console.log(`Auth token for logged in user: ${window.localStorage.rootAuthToken}`);
     // const requestOptions = {
@@ -127,12 +133,11 @@ class Firebase {
     //   .then(response => response.text())
     //   .then(data => alert(`Got response from video API${data}`));
 
-    return this.storage
+    this.storage
       .ref()
       .child(
         `${config.iOSAppBundleId}/study/careit-users/${uid}/careit-videos/${surveyId}/${videoId}`
       );
-  };
 }
 
 export default Firebase;
