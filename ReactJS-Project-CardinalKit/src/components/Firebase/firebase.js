@@ -103,6 +103,36 @@ class Firebase {
   // *** Surveys API ***
 
   surveys = uid => this.db.collection(`${config.iOSAppBundleId}/study/users/${uid}/mhs-surveys/`);
+
+  survey = (uid, surveyId) =>
+    this.db.collection(`${config.iOSAppBundleId}/study/users/${uid}/mhs-urveys/${surveyId}`);
+  // *** Providers API ***
+
+  provider = uid => this.db.collection(`${config.iOSAppBundleId}/study/providers/`).doc(`${uid}`);
+
+  providers = () => this.db.collection(`${config.iOSAppBundleId}/study/providers/`);
+
+  video = (uid, surveyId, videoId) => {
+    // const filePath = `${config.iOSAppBundleId}/study/careit-users/${uid}/careit-videos/${surveyId}/${videoId}`;
+    // console.log(`Auth token for logged in user: ${window.localStorage.rootAuthToken}`);
+    // const requestOptions = {
+    //   method: 'GET',
+    //   'Access-Control-Allow-Origin': '*',
+    //   headers: { authorization: `Bearer ${window.localStorage.rootAuthToken}` },
+    // };
+    // fetch(
+    //   `https://device-qa.stanford.edu/mhc-KnRJe654r9xkA5tX/api/v1/firebase/download?objectName=${filePath}`,
+    //   requestOptions
+    // )
+    //   .then(response => response.text())
+    //   .then(data => alert(`Got response from video API${data}`));
+
+    return this.storage
+      .ref()
+      .child(
+        `${config.iOSAppBundleId}/study/careit-users/${uid}/careit-videos/${surveyId}/${videoId}`
+      );
+  };
 }
 
 export default Firebase;

@@ -1,36 +1,61 @@
-import Firebase from '../components/Firebase';
 import app from 'firebase/app';
+import Firebase from '../components/Firebase';
 
 export function getAllFirebaseUsers(): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
-  return firebase.users().get().then(function(doc) {
-      return doc;
-  }).catch(function(error) {
-      console.log("Error getting document:", error);
-      return error;
-  });
+  return firebase
+    .users()
+    .get()
+    .then(doc => doc)
+    .catch(error => error);
 }
 
-export function getFirebaseUser(uid: String): Promise<app.firestore.QuerySnapshot> {
+export function getFirebaseUser(uid: string): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
-  return firebase.user(uid).get().then(function(doc) {
-      return doc;
-  }).catch(function(error) {
-      console.log("Error getting document:", error);
-      return error;
-  });
+  return firebase
+    .user(uid)
+    .get()
+    .then(doc => doc)
+    .catch(error => error);
 }
-
-export function getSurveys(uid: String): Promise<app.firestore.QuerySnapshot> {
+export function getSurveys(uid: string): Promise<app.firestore.QuerySnapshot> {
   const firebase = new Firebase();
-  return firebase.surveys(uid).get().then(function(doc) {
-      return doc;
-  }).catch(function(error) {
-      console.log("Error getting document:", error);
-      return error;
-  });
+  return firebase
+    .surveys(uid)
+    .get()
+    .then(doc => doc)
+    .catch(error => error);
 }
 
+export function getVideo(uid: string, surveyId: string, videoId: string) {
+  const firebase = new Firebase();
+  return firebase
+    .video(uid, surveyId, videoId)
+    .getDownloadURL()
+    .then(file => file)
+    .catch(error => error);
+}
+
+export function getAllFirebaseProviders(): Promise<app.firestore.QuerySnapshot> {
+  const firebase = new Firebase();
+  return firebase
+    .providers()
+    .get()
+    .then(doc => doc)
+    .catch(error => error);
+}
+
+export function getFirebaseProvider(uid: string): Promise<app.firestore.QuerySnapshot> {
+  const firebase = new Firebase();
+  return firebase
+    .provider(uid)
+    .get()
+    .then(doc => doc)
+    .catch(error => {
+      console.log('Error getting document:', error);
+      return error;
+    });
+}
 
 /*
 import { UserDetails } from './user';
@@ -62,4 +87,4 @@ export function getAllUsers(authToken: string): Promise<UserDetails[]> {
       };
     })
   );
-}*/
+} */
