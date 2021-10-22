@@ -35,10 +35,6 @@ class Header extends React.Component<HeaderProps> {
               Users
             </Link>}
           </div>
-          <div className="h-16 p-2 flex flex-col justify-center" onClick={logout}>
-            <LogOut color="white" />
-          </div>
-        <div className="w-64 flex justify-end items-center">
           <div className="h-16 p-2 flex flex-col justify-center">
             {<Link
               to="/providers/"
@@ -50,7 +46,7 @@ class Header extends React.Component<HeaderProps> {
           <div className="h-16 p-2 flex flex-col justify-center" onClick={logout}>
             <LogOut color="white" />
           </div>
-        </div>
+      </div>
       </div>
     );
   }
