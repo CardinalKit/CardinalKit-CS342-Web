@@ -31,7 +31,6 @@ class App extends React.Component<AppProps> {
             <PrivateRoute exact={true} path="/users" component={UsersPage} />
             <PrivateRoute exact={true} path="/user/:userID" component={(props:any) => <UserPage {...props} />} />
             <PrivateRoute exact={true} path="/providers" component={ProvidersPage} />
-            {/*<PrivateRoute exact={true} path="/providers" component={ProvidersPage} />*/}
             <PrivateRoute exact={true} path="/provider/:userID" component={(props:any) => <ProviderPage {...props} />} />
             <Redirect exact={true} from="/" to="/providers" />
             <Route component={NotFoundPage} />
