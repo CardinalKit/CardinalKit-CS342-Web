@@ -26,15 +26,26 @@ class Header extends React.Component<HeaderProps> {
         <Link to="/" className="h-16 p-2 flex flex-col justify-center">
           <img src={logo} className="h-12" alt="Logo" />
         </Link>
-
         <div className="w-64 flex justify-end items-center">
           <div className="h-16 p-2 flex flex-col justify-center">
-            {/*<Link
-              to="/users/"
-              className="text-white text-xl font-semibold text-center no-underline"
+            {<Link
+                to="/users/"
+                className="text-white text-xl font-semibold text-center no-underline"
             >
               Users
-            </Link>*/}
+            </Link>}
+          </div>
+          <div className="h-16 p-2 flex flex-col justify-center" onClick={logout}>
+            <LogOut color="white" />
+          </div>
+        <div className="w-64 flex justify-end items-center">
+          <div className="h-16 p-2 flex flex-col justify-center">
+            {<Link
+              to="/providers/"
+              className="text-white text-xl font-semibold text-center no-underline"
+            >
+              Providers
+            </Link>}
           </div>
           <div className="h-16 p-2 flex flex-col justify-center" onClick={logout}>
             <LogOut color="white" />

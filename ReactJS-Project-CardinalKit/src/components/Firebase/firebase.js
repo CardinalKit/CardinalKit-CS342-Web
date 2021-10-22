@@ -13,6 +13,8 @@ const config = {
   hosting: process.env.REACT_APP_HOSTING,
   iOSAppBundleId: process.env.REACT_APP_IOS_APP_ID,
   usersCollection: process.env.REACT_APP_USERS_COLLECTION,
+  providersCollection: process.env.REACT_APP_PROVIDERS_COLLECTION,
+  surveysCollection: process.env.REACT_APP_SURVEYS_COLLECTION,
 };
 
 class Firebase {
@@ -99,24 +101,29 @@ class Firebase {
   user = uid =>
     this.db.collection(`${config.iOSAppBundleId}/study/${config.usersCollection}`).doc(`${uid}`);
 
+  // users = () => this.db.collection(`${config.iOSAppBundleId}/study/${config.providersCollection}/`);
   users = () => this.db.collection(`${config.iOSAppBundleId}/study/${config.usersCollection}/`);
 
   // *** Surveys API ***
 
   surveys = uid =>
     this.db.collection(
-      `${config.iOSAppBundleId}/study/${config.usersCollection}/${uid}/mhs-surveys/`
+      `${config.iOSAppBundleId}/study/${config.usersCollection}/${uid}/${config.surveysCollection}/`
     );
 
   survey = (uid, surveyId) =>
     this.db.collection(
-      `${config.iOSAppBundleId}/study/${config.usersCollection}/${uid}/mhs-urveys/${surveyId}`
+      `${config.iOSAppBundleId}/study/${config.usersCollection}/${uid}/${config.surveysCollection}/${surveyId}`
     );
   // *** Providers API ***
 
-  provider = uid => this.db.collection(`${config.iOSAppBundleId}/study/providers/`).doc(`${uid}`);
+  provider = uid =>
+    this.db
+      .collection(`${config.iOSAppBundleId}/study/${config.providersCollection}/`)
+      .doc(`${uid}`);
 
-  providers = () => this.db.collection(`${config.iOSAppBundleId}/study/providers/`);
+  providers = () =>
+    this.db.collection(`${config.iOSAppBundleId}/study/${config.providersCollection}/`);
 
   video = (uid, surveyId, videoId) =>
     // const filePath = `${config.iOSAppBundleId}/study/careit-users/${uid}/careit-videos/${surveyId}/${videoId}`;

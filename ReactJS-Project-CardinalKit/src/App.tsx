@@ -11,6 +11,8 @@ import LoginPage from './components/LoginPage';
 import NotFoundPage from './components/NotFoundPage';
 import UsersPage from './components/UsersPage';
 import UserPage from './components/UserPage';
+import ProvidersPage from './components/ProvidersPage';
+import ProviderPage from './components/ProviderPage';
 
 interface AppProps {
   isAuth: boolean;
@@ -28,7 +30,10 @@ class App extends React.Component<AppProps> {
             <Route exact={true} path="/login" component={LoginPage} />
             <PrivateRoute exact={true} path="/users" component={UsersPage} />
             <PrivateRoute exact={true} path="/user/:userID" component={(props:any) => <UserPage {...props} />} />
-            <Redirect exact={true} from="/" to="/users" />
+            <PrivateRoute exact={true} path="/providers" component={ProvidersPage} />
+            {/*<PrivateRoute exact={true} path="/providers" component={ProvidersPage} />*/}
+            <PrivateRoute exact={true} path="/provider/:userID" component={(props:any) => <ProviderPage {...props} />} />
+            <Redirect exact={true} from="/" to="/providers" />
             <Route component={NotFoundPage} />
           </Switch>
         </div>

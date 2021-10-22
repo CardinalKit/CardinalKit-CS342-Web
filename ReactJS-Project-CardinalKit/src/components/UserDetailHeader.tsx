@@ -13,6 +13,7 @@ import { UserDetails } from '../api/user';
 import { Card } from '../ui/Card';
 
 import { TimeInfoBubble, TimeType } from './TimeInfoBubble';
+import {Link} from "react-router-dom";
 
 const messages = defineMessages({
   userIdHeader: {
@@ -64,6 +65,22 @@ class UserDetailHeader extends React.Component<UserDetailHeaderProps> {
                   {userDetails.eID}
                 </p>
               </div>
+              {/*<div className="flex justify-center items-center h-8 px-4">*/}
+              {/*  <p className="text-xl text-center font-bold">*/}
+              {/*    <FormattedMessage {...messages.userEidHeader} />*/}
+              {/*  </p>*/}
+              {/*  <p className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm px-4 ml-4">*/}
+              {/*    {userDetails.eID}*/}
+              {/*  </p>*/}
+              {/*</div>*/}
+              {/*<div className="flex justify-center items-center h-8 px-4">*/}
+              {/*  {<Link*/}
+              {/*      to="/providers/"*/}
+              {/*      className="font-mono text-center border boarder-grey-light bg-grey-lighter rounded-sm px-4 ml-4"*/}
+              {/*  >*/}
+              {/*    Providers*/}
+              {/*  </Link>}*/}
+              {/*</div>*/}
             </div>
             {lastActiveTake && (
               <TimeInfoBubble timeType={TimeType.Active} time={lastActiveTake} />
