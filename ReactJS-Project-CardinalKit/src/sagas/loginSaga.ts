@@ -20,8 +20,7 @@ export function* loginUser(action: LoginUserAction) {
   try {
     const result = yield call(new Firebase().doSignInWithGoogle);
 
-    // if (result && result.user && result.user.email && result.user.email.endsWith("@stanford.edu")) {
-    if (result && result.user && result.user.email) {
+    if (result && result.user && result.user.email && result.user.email.endsWith("@stanford.edu")) {
       yield put(loginUserSuccess(result.credential.accessToken));
     } else {
       yield put(loginUserFailure("Invalid Email Address"));
