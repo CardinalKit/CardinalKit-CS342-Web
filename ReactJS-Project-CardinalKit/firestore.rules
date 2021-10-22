@@ -6,25 +6,38 @@ service cloud.firestore {
     }
   }
   match /databases/{database}/documents/med.stanford.mh.sample/study {
-    //     match /mhs_users/{userId}/{document=**} {
-    //       // allow read,write: if request.auth.uid == userId;
-    //       allow read,write: if true;
-
-    //     }
-    // For iOS app - mh_users can edit their own directories
     match /mhs_users/{userId} {
-    // allow read,write: if request.auth.uid == userId;
-    allow read,write: if true;
-
+      allow read: if isAdminRole(request) || isProviderRole(request);
     }
     match /mhs_users/{userId}/mhs_surveys/{survyId} {
-    // allow read,write: if request.auth.uid == userId;
-    allow read,write: if true;
+      allow read: if isAdminRole(request) || isProviderRole(request);
+    }
+    match /mhs_providers/{userId} {
+      allow read: if isAdminRole(request);
+    }
+    //To check for the Admin role in the system
+    function isAdminRole(request){
+      return isUserRole('admin', request);
+    }
+    //To check for the Provider role in the system
+    function isProviderRole(request){
+      return isUserRole('provider', request);
+    }
+    function isUserRole(role, request){
+      return isStanfordLogin(request)
+      && getProviderData().role == role;
+    }
+    function getProviderData() {
+      return get(/databases/$(database)/documents/med.stanford.mh.sample/study/mhs_providers/$(request.auth.token.email)).data;
+    }
+    // Ensure the authenticated user has authenticated using a Stanford University GSuite account
+    // This is  the policy for dashboard app users (providers and administrators) to access Firestore
+    function isStanfordLogin(request) {
+      return request.auth.token.firebase.sign_in_provider == "google.com" && request.auth.token.email.matches(".*@stanford[.]edu");
+    }
+    function isGoogleLogin(request) {
+      return request.auth.token.firebase.sign_in_provider == "google.com";
     }
 
-    match /mhs_providers/{userId} {
-        // allow read,write: if request.auth.uid == userId;
-        allow read,write: if true;
-    }
-	}
+  }
 }
